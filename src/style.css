@@ -1,0 +1,105 @@
+.for-form_login
+{
+    margin: 2cm 12cm;
+    text-align: center;
+    background: rgb(234, 234, 234, 0.7);
+    height: 10cm;
+    width: 8cm;
+    font-family: "Cambria Math";
+    border-radius: 10px;
+}
+
+.for-background
+{
+    background-image: url("./image/background_login_signup.jpg");
+    background-size: 1230px;
+    background-repeat: no-repeat;
+}
+
+.for-button_login_signup
+{
+    background: rgb(255, 109, 40);
+    border-color: wheat;
+    border-radius: 2cm;
+    height: 0.8cm;
+    width: 4cm;
+    font-family: "Cambria Math";
+    font-size: 17px;
+    color: rgb(0, 46, 148);
+}
+
+.for-after_click_mouse
+{
+    a: hover;
+    color:black;
+    text-decoration:underline;
+}
+.for-font_signup
+{
+    text-align: center;
+    font-family: "CentSchbkCyrill BT";
+    font-size: small;
+}
+
+.horizontal_rotation_tag_li
+{
+    display:inline-block;
+    a: hover;
+    color:black;
+    text-decoration:none;
+}
+.for_table_menu
+{
+    font-family: "CentSchbkCyrill BT";
+    font-size: small;
+    border-bottom: outset;
+    border-bottom-color: royalblue;
+    width: 100%;
+    text-align: center;
+    border-collapse:collapse;
+}
+
+#menu_horizontal ul
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(255, 221, 210);
+    text-align: right;
+}
+
+#menu_horizontal ul li
+{
+    float: left;
+    position: relative;
+}
+
+#menu_horizontal ul li a
+{
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#menu_horizontal ul li a:hover
+{
+    color: white;
+    background-color: #00ABB3;
+    font-weight: bold;
+}
+
+#menu_horizontal .sub-menu
+{
+    position: absolute;
+    display: none;
+}
+
+#menu_horizontal ul li:hover .sub-menu
+{
+    display: block;
+}
+
+
+
