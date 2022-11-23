@@ -1,0 +1,22 @@
+[
+    {
+        "createDate": "10-11-2022",
+        "doctorName": "Nguyễn Văn A",
+        "doctorIdInHospital": "1",
+        "patientName": "Nguyễn Thị B",
+        "patientIdInHospital": "1",
+        "sys": 100,
+        "dia": 100,
+        "pulse": 100
+    },
+    {
+        "createDate": "10-11-2022",
+        "doctorName": "Nguyễn Văn A",
+        "doctorIdInHospital": "1",
+        "patientName": "Nguyễn Thị B",
+        "patientIdInHospital": "1",
+        "sys": 100,
+        "dia": 100,
+        "pulse": 100
+    }
+]

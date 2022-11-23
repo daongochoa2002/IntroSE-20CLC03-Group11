@@ -11,6 +11,10 @@
   <div class="container">
     <h1 class="mb-4">Edit Article</h1>
 
+    <div class="card-subtitle text-muted mb-2">
+      <%= user.firstName %>
+    </div>
+
     <form action="/articles/<%= article.id %>?_method=PUT" method="POST">
       <%- include('_form_fields') %>
     </form>

@@ -7,12 +7,12 @@ const infoRouter = require("./routers/info");
 const articleRouter = require("./routers/articles");
 const appointmentRouter = require("./routers/appointment");
 const app = express();
-const hbs = require("hbs");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const methodOverride = require('method-override')
+const Article = require('./database/models/article')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
