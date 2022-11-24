@@ -28,6 +28,7 @@ const UserSchema = new mongoose.Schema({
     },
     "role": {
         type: String,
+        enum: ["DOCTOR", "PATIENT"],
         required: true
     }
 });
