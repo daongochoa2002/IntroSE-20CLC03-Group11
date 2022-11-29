@@ -34,6 +34,10 @@ const UserSchema = new mongoose.Schema({
     },
     "tokens": {
         type: Map
+    },
+    "userIdInHospital": {
+        type: String,
+        unique: true,
     }
 });
 
