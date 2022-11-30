@@ -1,3 +1,50 @@
-{
-    "doctor": ""
-}
+[
+    {
+        "createDate": "10-11-2022",
+        "doctorName": "Nguyễn Văn A",
+        "patientName": "Nguyễn Thị B",
+        "note": "Kiểm tra lại vào tuần sau",
+        "listDrug": [
+            {
+                "drug": "Panadol",
+                "dosage": "Sáng 1 viên, Chiều 1 viên, Chiều 1 viên"
+            },
+            {
+                "drug": "Amox",
+                "dosage": "Sáng 1 viên, Chiều 1 viên"
+            }
+        ]
+    },
+    {
+        "createDate": "10-11-2022",
+        "doctorName": "Nguyễn Văn A",
+        "patientName": "Nguyễn Thị B",
+        "note": "Kiểm tra lại vào tuần sau",
+        "listDrug": [
+            {
+                "drug": "Panadol",
+                "dosage": "Sáng 1 viên, Chiều 1 viên, Chiều 1 viên"
+            },
+            {
+                "drug": "Amox",
+                "dosage": "Sáng 1 viên, Chiều 1 viên"
+            }
+        ]
+    },
+    {
+        "createDate": "10-11-2022",
+        "doctorName": "Nguyễn Văn A",
+        "patientName": "Nguyễn Thị B",
+        "note": "Kiểm tra lại vào tuần sau",
+        "listDrug": [
+            {
+                "drug": "Panadol",
+                "dosage": "Sáng 1 viên, Chiều 1 viên, Chiều 1 viên"
+            },
+            {
+                "drug": "Amox",
+                "dosage": "Sáng 1 viên, Chiều 1 viên"
+            }
+        ]
+    }
+]
