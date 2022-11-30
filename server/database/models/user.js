@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
+const {TOKEN_HASH_KEY} = require("../../constants")
 
 const UserSchema = new mongoose.Schema({
     "email": {
@@ -50,11 +51,12 @@ UserSchema.statics.findByCredential = async function (email, password) {
 
 UserSchema.methods.createToken = async function () {
     const user = this;
-    const token = jwt.sign({id: user._id, role: user.role}, "introSE-20CLC03-Group11");
+    const token = jwt.sign({id: user._id, role: user.role}, TOKEN_HASH_KEY);
     user.tokens = user.tokens.set(token, "");
     await user.save();
     return token;
 }
 
 const UserData = mongoose.model("User", UserSchema);
+
 module.exports = UserData;
