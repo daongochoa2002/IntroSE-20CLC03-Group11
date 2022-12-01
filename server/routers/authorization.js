@@ -50,7 +50,7 @@ router.route("/login")
 router.route("/logout")
     .get(function (req, res) {
         res.cookie("Authorization", "");
-        res.redirect("/");
+        res.redirect("/login");
     })
 
 module.exports = router;
