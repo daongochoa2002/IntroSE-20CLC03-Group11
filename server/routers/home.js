@@ -14,7 +14,7 @@ router.route("/")
                 break;
             default:
                 console.log("render home_guest")
-                res.render("home_guest");
+                res.render('home_guest');
                 break;
         }
     })
