@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(methodOverride('_method'))
 
-const publicPath = path.join(__dirname, "client"); // link to css/img
-const viewsPath = path.join(__dirname, "client"); //link to views (HTML/HBS/ejs)
+const publicPath = path.join(__dirname, "views/"); // link to css/img
+const viewsPath = path.join(__dirname, "views/"); //link to views (HTML/HBS/ejs)
 // const PartialPath = path.join(__dirname, "templates/partials");
 
 app.set("views", viewsPath);

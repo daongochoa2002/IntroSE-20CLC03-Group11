@@ -14,7 +14,7 @@ router.get('/articles/edit/:id', async (req, res) => {
 
 router.get('/articles/:slug', async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
-  if (article == null) res.redirect('/')
+  if (article == null) res.redirect('/articles')
   res.render('articles/show', { article: article })
 })
 
@@ -35,7 +35,7 @@ router.put('/articles/:id', async (req, res, next) => {
 
 router.delete('/articles/:id', async (req, res) => {
   await Article.findByIdAndDelete(req.params.id)
-  res.redirect('/')
+  res.redirect('/articles')
 })
 
 function saveArticleAndRedirect(path) {

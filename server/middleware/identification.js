@@ -31,7 +31,7 @@ const auth = async function (req, res, next) {
 const redirectToNonUser = function (req, res){
     console.log("redirectToNonUser")
     if(req.path == "/")
-        res.render("home_guest");
+        res.render("home/home_guest");
     else
         res.redirect("/login");
 }
