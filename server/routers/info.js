@@ -20,28 +20,30 @@ router.route("/personal_info")
         }
     });
 
-// router.route("/prescription") //todo update
-//     .get(auth, async function (req, res) {
-//         const user = req.user;
-//         if(!user){
-//             console.log("user null");
-//             return;
-//         }
-//         const userIdInHospital = user.userIdInHospital;
-//         if(!userIdInHospital){
-//             console.log("userIdInHospital null");
-//             return;
-//         }
-//         const presciptionFile = await fs.readFileSync("../config/prescription.json");
-//         let prescritionData = []
-//         if(user){
-//             res.render("prescription", {
-//                 prescription: prescritionData
-//             })
-//         }
-//         else {
-//             console.log("user null");
-//         }
-//     })
+router.route("/prescription") //todo update
+    .get(auth, async function (req, res) {
+        res.render("prescription");
+        return;
+        const user = req.user;
+        if(!user){
+            console.log("user null");
+            return;
+        }
+        const userIdInHospital = user.userIdInHospital;
+        if(!userIdInHospital){
+            console.log("userIdInHospital null");
+            return;
+        }
+        const presciptionFile = await fs.readFileSync("../config/prescription.json");
+        let prescritionData = []
+        if(user){
+            res.render("prescription", {
+                prescription: prescritionData
+            })
+        }
+        else {
+            console.log("user null");
+        }
+    })
 
 module.exports = router;

@@ -6,6 +6,12 @@ const { JSDOM } = require('jsdom')
 const dompurify = createDomPurify(new JSDOM().window)
 
 const articleSchema = new mongoose.Schema({
+  ownerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+    unique: true
+  },
   title: {
     type: String,
     required: true
