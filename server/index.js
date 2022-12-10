@@ -5,6 +5,7 @@ const homeRouter = require("./routers/home");
 const authorizationRouter = require("./routers/authorization");
 const infoRouter = require("./routers/info");
 const articleRouter = require("./routers/articles");
+const appointmentRouter = require("./routers/appointment");
 const app = express();
 const hbs = require("hbs");
 const path = require("path");
@@ -36,4 +37,5 @@ app.listen(PORT, function () {
 app.use(homeRouter);
 app.use(authorizationRouter);
 app.use(infoRouter);
-app.use(articleRouter)
+app.use(articleRouter);
+app.use(appointmentRouter);

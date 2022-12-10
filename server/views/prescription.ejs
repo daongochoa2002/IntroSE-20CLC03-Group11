@@ -35,7 +35,7 @@
                         Personal information
                     </a>
 
-                    <a class="dropdown-item" href="/home_guest">
+                    <a class="dropdown-item" href="/logout">
                         <i class="bi bi-box-arrow-right"></i>
                         Log out
                     </a>
@@ -51,46 +51,37 @@
         <h2>PRESCRIPTIONS</h2>
         <table width="1000px">
             <thead>
-            <tr>
-                <th>Create date</th>
-                <th>Doctor's name</th>
-                <th>Patient's name</th>
-                <th>Note</th>
-                <th>Drugs</th>
-                <th>Dosage</th>
-            </tr>
+                <tr>
+                    <th>Create date</th>
+                    <th>Doctor's name</th>
+                    <th>Patient's name</th>
+                    <th>Note</th>
+                    <th>Drugs</th>
+                    <th>Dosage</th>
+                </tr>
             </thead>
             <tbody id="data-output">
-            <!-- Prodcuts from javascript file in here. -->
+                <% prescriptions.forEach(prescription => { %>
+                    <tr>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.createDate %></td>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.doctorName %></td>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.patientName %></td>
+                        <td><%= prescription.listDrug[0].drug %></td>
+                        <td><%= prescription.listDrug[0].dosage %></td>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.note %></td>
+                    </tr>
+                    <% if(prescription.listDrug.length > 1) { %>
+                        <% for(let i = 1; i < prescription.listDrug.length; i++) { %>
+                            <tr>
+                                <td><%= prescription.listDrug[i].drug %></td>
+                                <td><%= prescription.listDrug[i].dosage %></td>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                <% }) %>
             </tbody>
         </table>
-
-        <script>
-            fetch("/config/prescription.json")
-                    .then(function(response){
-                        return response.json();
-                    })
-                    .then(function(prescription){
-                        let placeholder = document.querySelector("#data-output");
-                        let out = "";
-                        for(let drugs = 0; drugs < prescription.length; drugs++){
-                            out += `
-                                <tr>
-                                    <td>${prescription[drugs].createDate}</td>
-                                    <td>${prescription[drugs].doctorName}</td>
-                                    <td>${prescription[drugs].patientName}</td>
-                                    <td>${prescription[drugs].note}</td>
-                                    <td>${prescription[drugs].listDrug[0].drug}</td>
-                                    <td>${prescription[drugs].listDrug[1].dosage}</td>
-                                </tr>
-                            `;
-                        }
-
-                        placeholder.innerHTML = out;
-                    });
-        </script>
     </div>
-
 </div>
 
 <footer class="bg-light text-center text-lg-start">

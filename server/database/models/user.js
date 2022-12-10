@@ -48,9 +48,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         unique: true,
     }
-    // "tokens": { //todo check
-    //     type: Map
-    // }
 });
 
 UserSchema.statics.findByCredential = async function (email, password) {

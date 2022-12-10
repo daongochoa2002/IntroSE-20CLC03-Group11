@@ -53,11 +53,4 @@ router.route("/logout")
         res.redirect("/login");
     })
 
-router.route("/prescription")
-    .get (function (req, res) {
-        res.render('prescription');
-    })
-
-
-
 module.exports = router;

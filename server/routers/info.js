@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const auth = require("../middleware/identification");
 const fs = require("fs");
+const path = require("path");
 
 router.route("/personal_info")
     .get(auth, function (req, res) {
@@ -20,30 +21,29 @@ router.route("/personal_info")
         }
     });
 
-router.route("/prescription") //todo update
+router.route("/prescription")
     .get(auth, async function (req, res) {
-        res.render("prescription");
-        return;
         const user = req.user;
         if(!user){
             console.log("user null");
             return;
         }
         const userIdInHospital = user.userIdInHospital;
-        if(!userIdInHospital){
-            console.log("userIdInHospital null");
-            return;
-        }
-        const presciptionFile = await fs.readFileSync("../config/prescription.json");
-        let prescritionData = []
-        if(user){
-            res.render("prescription", {
-                prescription: prescritionData
-            })
-        }
-        else {
-            console.log("user null");
-        }
+        const role = user.role;
+        // if(!userIdInHospital){
+        //     console.log("userIdInHospital null");
+        //     return;
+        // }
+        const file = await fs.readFileSync(path.join(__dirname, "../config/prescription.json"));
+        const prescriptions = JSON.parse(file);
+        const userPrescriptions = [];
+        prescriptions.forEach(prescription => {
+            if((role == "Doctor" && userIdInHospital == prescription.doctorIdInHospital) ||
+                (role == "Patient" && userIdInHospital == prescription.patientIdInHospital)){
+                userPrescriptions.push(prescription)
+            }
+        })
+        res.render("prescription", {prescriptions: userPrescriptions})
     })
 
 module.exports = router;
