@@ -37,14 +37,9 @@ router
         res.redirect("/appointment/doctor");
     })
     .get("/appointment/patient", auth, async function (req, res) {
-        // const doctors = await UserData.find({role: "Doctor"});
+        // const doctors = await UserData.find({role: "Doctor"}); //todo update check role doctor
         const doctors = await UserData.find();
-        let selectedDoctorId = null;
-        if(req.query.doctorId)
-            selectedDoctorId = req.query.doctorId;
-        else if(!req.query.doctorId && doctors && doctors.length > 0)
-            selectedDoctorId = doctors[0]._id;
-        const dataAppointments = await AppointmentData.find({patientId: null, doctorId: selectedDoctorId}).sort({time: 'desc'});
+        const dataAppointments = await AppointmentData.find({patientId: null}).sort({time: 'desc'});
         const appointments = [];
         dataAppointments.forEach(dataAppointment => {
             const dateTime = new Date(dataAppointment.time);
@@ -61,21 +56,15 @@ router
         console.log("appointments:: " + appointments)
         res.render("appointment", {
             doctors: doctors,
-            selectedDoctorId: selectedDoctorId,
             appointments: appointments
         })
     })
     .post("/appointment/patient", auth, async function (req, res) {
-        console.log("doctorId:: " + req.body.doctorId)
-        // const doctors = await UserData.find({role: "Doctor"});
-        // const appointments = await AppointmentData.find({patientId: null});
-        // res.render("appointment", {
-        //     doctors: doctors,
-        //     appointments: appointments
-        // })
-    })
-    .get("/appointment/patient/:doctorId", auth, async function (req, res) {
-        res.redirect("/appointment/patient/?doctorId=" + req.params.doctorId)
+        console.log("booking:: " + JSON.stringify(req.body))
+        const appointment = await AppointmentData.findOne({_id: req.body.appointmentId});
+        appointment.patientId = req.user._id;
+        appointment.save();
+        res.redirect("/appointment/patient");
     })
 
 module.exports = router;
