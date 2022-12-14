@@ -1,0 +1,15 @@
+<div class="form-group">
+  <label for="name">Name</label>
+  <input required value="<%= drug.name %>" type="text" name="name" id="name" class="form-control">
+</div>
+<div class="form-group">
+  <label for="condition">Condition</label>
+  <textarea name="condition" id="condition" class="form-control"><%= drug.condition %></textarea>
+</div>
+<div class="form-group">
+  <label for="review">Review</label>
+  <textarea required name="review" id="review" class="form-control"><%= drug.review %></textarea>
+</div>
+
+<a href="/medicines" class="btn btn-secondary">Cancel</a>
+<button type="submit" class="btn btn-primary">Save</button>

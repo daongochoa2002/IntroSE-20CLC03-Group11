@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Medicine</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4">Medicines</h1>
+
+    <a href="/medicines/new" class="btn btn-success">Add Drug</a>
+    <a href="/medicines/search" class="btn btn-info">Search</a>
+    
+    <% drugs.forEach(drug => { %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title"><%= drug.name %></h4>
+          <div class="card-subtitle text-muted mb-2">
+            <%= drug.condition %>
+          </div>
+          <div class="card-text mb-2"><%= drug.review %></div>
+          <a href="/medicines/<%= drug.slug %>" class="btn btn-primary">Read More</a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</body>
+</html>

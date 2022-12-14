@@ -5,6 +5,7 @@ const homeRouter = require("./routers/home");
 const authorizationRouter = require("./routers/authorization");
 const infoRouter = require("./routers/info");
 const articleRouter = require("./routers/articles");
+const drugRouter = require("./routers/drugs");
 const appointmentRouter = require("./routers/appointment");
 const app = express();
 const path = require("path");
@@ -13,6 +14,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const methodOverride = require('method-override')
 const Article = require('./database/models/article')
+const Drug = require('./database/models/drug')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -39,3 +41,4 @@ app.use(authorizationRouter);
 app.use(infoRouter);
 app.use(articleRouter);
 app.use(appointmentRouter);
+app.use(drugRouter);
