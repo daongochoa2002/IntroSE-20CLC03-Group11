@@ -68,6 +68,10 @@ UserSchema.methods.createToken = async function () {
     return token;
 }
 
+UserSchema.methods.getName = function () {
+    return this.firstName + " " + this.lastName;
+}
+
 const UserData = mongoose.model("User", UserSchema);
 
 module.exports = UserData;

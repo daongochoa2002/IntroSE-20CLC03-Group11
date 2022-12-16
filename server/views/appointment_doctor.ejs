@@ -79,6 +79,7 @@
         <tr>
             <th>Date</th>
             <th>Time</th>
+            <th>Patient</th>
             <th></th>
         </tr>
         </thead>
@@ -87,6 +88,7 @@
                 <tr>
                     <td><%= appointment.date %></td>
                     <td><%= appointment.hour %></td>
+                    <td><%= appointment.patientName %></td>
                     <td>
                         <form action="/appointment/doctor/<%= appointment._id %>?_method=DELETE" method="POST">
                             <button type="submit" class="btn btn-danger">Delete</button>

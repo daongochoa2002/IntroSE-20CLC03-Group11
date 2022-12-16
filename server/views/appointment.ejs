@@ -78,6 +78,24 @@
         </div>
       </div>
     </div>
+    <table width="1000px">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Doctor</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% userAppointments.forEach(appointment => { %>
+        <tr>
+          <td><%= appointment.date %></td>
+          <td><%= appointment.hour %></td>
+          <td><%= appointment.doctorName %></td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
   </div>
 
   <footer class="bg-light text-center text-lg-start">
@@ -98,7 +116,6 @@
         <!--Grid column-->
         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
           <h5 class="text-uppercase">Footer text</h5>
-
           <p>
             ABOUT US
           </p>

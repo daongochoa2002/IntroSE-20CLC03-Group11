@@ -5,19 +5,21 @@ const UserData = require("../database/models/user");
 const router = new express.Router();
 router
     .get("/appointment/doctor", auth, async function (req, res) {
-        const dataAppointments = await AppointmentData.find({doctorId: req.user._id}).sort({time: 'desc'});
+        const dataAppointments = await AppointmentData.find({doctorId: req.user._id}).sort({time: 1});
         const appointments = [];
-        dataAppointments.forEach(dataAppointment => {
+        for (const dataAppointment of dataAppointments) {
             const dateTime = new Date(dataAppointment.time);
             const date = dateTime.getDate() + "-" + (dateTime.getMonth() + 1) + "-" + dateTime.getFullYear();
             const hour = dateTime.getHours() + ":" + dateTime.getMinutes();
+            const patient = await UserData.findOne({_id: dataAppointment.patientId});
             appointments.push({
+                patientName: patient ? patient.getName() : null,
                 doctorId: dataAppointment.doctorId,
                 patientId: dataAppointment.patientId,
                 date: date,
                 hour: hour
             })
-        })
+        }
         res.render("appointment_doctor", {appointments: appointments});
     })
     .post("/appointment/doctor", auth, async function (req, res) {
@@ -37,26 +39,43 @@ router
         res.redirect("/appointment/doctor");
     })
     .get("/appointment/patient", auth, async function (req, res) {
-        // const doctors = await UserData.find({role: "Doctor"}); //todo update check role doctor
+        // const doctors = await UserData.find({role: "Patient"}); //todo update check role doctor
         const doctors = await UserData.find();
-        const dataAppointments = await AppointmentData.find({patientId: null}).sort({time: 'desc'});
+        const dataAppointments = await AppointmentData.find({patientId: null}).sort({time: 1});
         const appointments = [];
-        dataAppointments.forEach(dataAppointment => {
+        for (const dataAppointment of dataAppointments) {
             const dateTime = new Date(dataAppointment.time);
             const date = dateTime.getDate() + "-" + (dateTime.getMonth() + 1) + "-" + dateTime.getFullYear();
             const hour = dateTime.getHours() + ":" + dateTime.getMinutes();
+            const doctor = await UserData.findOne({_id: dataAppointment.doctorId});
             appointments.push({
                 _id: dataAppointment._id,
+                doctorName: doctor ? doctor.getName() : null,
                 doctorId: dataAppointment.doctorId,
                 patientId: dataAppointment.patientId,
                 date: date,
                 hour: hour
             })
-        })
-        console.log("appointments:: " + appointments)
+        }
+        const dataUserAppointments = await AppointmentData.find({patientId: req.user._id}).sort({time: 1});
+        const userAppointments = [];
+        for(const dataAppointment of dataUserAppointments){
+            const dateTime = new Date(dataAppointment.time);
+            const date = dateTime.getDate() + "-" + (dateTime.getMonth() + 1) + "-" + dateTime.getFullYear();
+            const hour = dateTime.getHours() + ":" + dateTime.getMinutes();
+            const doctor = await UserData.findOne({_id: dataAppointment.doctorId});
+            userAppointments.push({
+                _id: dataAppointment._id,
+                doctorName: doctor ? doctor.getName() : null,
+                date: date,
+                hour: hour
+            })
+        }
         res.render("appointment", {
+            userId: req.user._id,
             doctors: doctors,
-            appointments: appointments
+            appointments: appointments,
+            userAppointments: userAppointments
         })
     })
     .post("/appointment/patient", auth, async function (req, res) {
