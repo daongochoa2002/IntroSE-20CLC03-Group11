@@ -21,6 +21,7 @@ const auth = async function (req, res, next) {
         req.user = user;
         req.token = token;
         req.role = user.role;
+        console.log("here")
         next();
     }catch (e){
         console.log(e);

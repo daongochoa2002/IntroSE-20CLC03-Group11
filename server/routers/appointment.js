@@ -5,6 +5,10 @@ const UserData = require("../database/models/user");
 const router = new express.Router();
 router
     .get("/appointment/doctor", auth, async function (req, res) {
+        if(req.user && req.user.role !== "Doctor"){
+            res.redirect("/login");
+            return;
+        }
         const dataAppointments = await AppointmentData.find({doctorId: req.user._id}).sort({time: 1});
         const appointments = [];
         for (const dataAppointment of dataAppointments) {
@@ -23,6 +27,10 @@ router
         res.render("appointment_doctor", {appointments: appointments});
     })
     .post("/appointment/doctor", auth, async function (req, res) {
+        if(req.user && req.user.role !== "Doctor"){
+            res.redirect("/login");
+            return;
+        }
         console.log("appointment:: " + JSON.stringify(req.body))
         const dateParts = req.body.date.split("-")
         const hourParts = req.body.hour.split(":")
@@ -35,10 +43,18 @@ router
         res.redirect("/appointment/doctor");
     })
     .delete("/appointment/doctor/:appointment_id", auth, async function (req, res) {
+        if(req.user && req.user.role !== "Doctor"){
+            res.redirect("/login");
+            return;
+        }
         await AppointmentData.findOne({_id: req.params.appointment_id}).remove();
         res.redirect("/appointment/doctor");
     })
     .get("/appointment/patient", auth, async function (req, res) {
+        if(req.user && req.user.role !== "Patient"){
+            res.redirect("/login");
+            return;
+        }
         // const doctors = await UserData.find({role: "Patient"}); //todo update check role doctor
         const doctors = await UserData.find();
         const dataAppointments = await AppointmentData.find({patientId: null}).sort({time: 1});
@@ -79,6 +95,10 @@ router
         })
     })
     .post("/appointment/patient", auth, async function (req, res) {
+        if(req.user && req.user.role !== "Patient"){
+            res.redirect("/login");
+            return;
+        }
         console.log("booking:: " + JSON.stringify(req.body))
         const appointment = await AppointmentData.findOne({_id: req.body.appointmentId});
         appointment.patientId = req.user._id;

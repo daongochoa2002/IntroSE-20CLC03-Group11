@@ -7,6 +7,7 @@ const infoRouter = require("./routers/info");
 const articleRouter = require("./routers/articles");
 const drugRouter = require("./routers/drugs");
 const appointmentRouter = require("./routers/appointment");
+const adminRouter = require("./routers/admin");
 const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -15,6 +16,7 @@ const mongoose = require("mongoose");
 const methodOverride = require('method-override')
 const Article = require('./database/models/article')
 const Drug = require('./database/models/drug')
+const {runConfig} = require("./config/config")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -33,6 +35,7 @@ app.use(express.static(publicPath));
 app.use(express.json()); // every object automatically turn into JSON formatted
 
 app.listen(PORT, function () {
+    runConfig();
     console.log("Server start port: " + PORT);
 })
 
@@ -42,3 +45,4 @@ app.use(infoRouter);
 app.use(articleRouter);
 app.use(appointmentRouter);
 app.use(drugRouter);
+app.use(adminRouter);

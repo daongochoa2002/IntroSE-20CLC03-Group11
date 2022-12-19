@@ -34,7 +34,7 @@ router.route("/prescription")
         //     console.log("userIdInHospital null");
         //     return;
         // }
-        const file = await fs.readFileSync(path.join(__dirname, "../config/prescription.json"));
+        const file = await fs.readFileSync(path.join(__dirname, "../config/json/prescription.json"));
         const prescriptions = JSON.parse(file);
         const userPrescriptions = [];
         prescriptions.forEach(prescription => {

@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     "dateOfBirth": {
-        type: String,
+        type: Date,
     },
     "role": {
         type: String,
@@ -46,14 +46,11 @@ const UserSchema = new mongoose.Schema({
     },
     "userIdInHospital": {
         type: String,
-        unique: true,
     }
 });
 
 UserSchema.statics.findByCredential = async function (email, password) {
     const user = await UserData.findOne({email, password});
-    if (!user)
-        throw "Wrong email or password!";
     return user;
 }
 

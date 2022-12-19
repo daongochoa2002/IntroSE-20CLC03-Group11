@@ -86,7 +86,7 @@ function searchDrugAndRedirect(path) {
     try {
       console.log('djlsdgi')
       console.log(name)
-      const f_drug = await Drug.find({name:name})
+      const f_drug = await Drug.find({name: { $regex: name, $options: "i" }})
       console.log(f_drug[0])
       res.redirect(`${f_drug[0] .slug}`)
     } catch (e) {
