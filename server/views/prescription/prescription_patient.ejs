@@ -55,27 +55,42 @@
                     <th>Create date</th>
                     <th>Doctor's name</th>
                     <th>Patient's name</th>
-                    <th>Note</th>
                     <th>Drugs</th>
                     <th>Dosage</th>
+                    <th>Note</th>
                 </tr>
             </thead>
             <tbody id="data-output">
                 <% prescriptions.forEach(prescription => { %>
-                    <tr>
-                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.createDate %></td>
-                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.doctorName %></td>
-                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.patientName %></td>
-                        <td><%= prescription.listDrug[0].drug %></td>
-                        <td><%= prescription.listDrug[0].dosage %></td>
-                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.note %></td>
-                    </tr>
-                    <% if(prescription.listDrug.length > 1) { %>
-                        <% for(let i = 1; i < prescription.listDrug.length; i++) { %>
-                            <tr>
-                                <td><%= prescription.listDrug[i].drug %></td>
-                                <td><%= prescription.listDrug[i].dosage %></td>
-                            </tr>
+                    <% if(prescription.listDrug.length < 1) { %>
+                        <tr>
+                            <td><%= prescription.createDate %></td>
+                            <td><%= prescription.doctorName %></td>
+                            <td><%= prescription.patientName %></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <% } else { %>
+                        <tr>
+                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.createDate %></td>
+                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.doctorName %></td>
+                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.patientName %></td>
+                            <% if(prescription.listDrug.length > 0) { %>
+                                <td><%= prescription.listDrug[0].drugName %></td>
+                                <td><%= prescription.listDrug[0].dosage %></td>
+                            <% } else { %>
+                                <td>haha</td>
+                                <td>ola</td>
+                            <% } %>
+                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.note %></td>
+                        </tr>
+                        <% if(prescription.listDrug.length > 1) { %>
+                            <% for(let i = 1; i < prescription.listDrug.length; i++) { %>
+                                <tr>
+                                    <td><%= prescription.listDrug[i].drug %></td>
+                                    <td><%= prescription.listDrug[i].dosage %></td>
+                                </tr>
+                            <% } %>
                         <% } %>
                     <% } %>
                 <% }) %>

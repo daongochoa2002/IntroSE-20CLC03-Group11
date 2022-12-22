@@ -2,6 +2,7 @@ const express = require("express");
 const auth = require("../middleware/identification");
 const AppointmentData = require("../database/models/appointment");
 const UserData = require("../database/models/user");
+const {isValidId} = require("../utils");
 const router = new express.Router();
 
 router
@@ -16,6 +17,10 @@ router
     .get("/admin/manage_account/edit/:id", auth, async function (req, res) {
         if(req.user && req.user.role !== "Admin"){
             res.redirect("/login");
+            return;
+        }
+        if(!isValidId(req.params.id)){
+            res.send("<h1>Invalid account ID</h1>");
             return;
         }
         const user = await UserData.findOne({_id: req.params.id});
@@ -36,6 +41,10 @@ router
         })
     })
     .post("/admin/manage_account/edit/:id", auth, async function (req, res) {
+        if(!isValidId(req.params.id)){
+            res.send("<h1>Invalid account ID</h1>");
+            return;
+        }
         let user = await UserData.findOne({_id: req.params.id})
         if(!user){
             res.send("<h1>User not exist</h1>");
@@ -57,6 +66,10 @@ router
     .delete("/admin/manage_account/delete/:id", auth, async function(req, res) {
         if(req.user && req.user.role !== "Admin"){
             res.redirect("/login");
+            return;
+        }
+        if(!isValidId(req.params.id)){
+            res.send("<h1>Invalid account ID</h1>");
             return;
         }
         await UserData.deleteOne({_id: req.params.id});

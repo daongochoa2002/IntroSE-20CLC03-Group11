@@ -11,8 +11,19 @@
   <div class="container">
     <h1 class="mb-4">Medicines</h1>
 
-    <a href="/medicines/new" class="btn btn-success">Add Drug</a>
-    <a href="/medicines/search" class="btn btn-info">Search</a>
+    <%if(role === "Admin") { %>
+      <a href="/medicines/new" class="btn btn-success mb-2">Add Drug</a>
+    <% } %>
+    <form action="/medicines/search" method="POST" class="row">
+      <div class="col">
+        <div class="form-group">
+          <input required type="text" name="name" id="name" class="form-control">
+        </div>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </form>
     
     <% drugs.forEach(drug => { %>
       <div class="card mt-4">

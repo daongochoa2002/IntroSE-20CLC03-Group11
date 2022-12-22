@@ -2,6 +2,7 @@ const express = require("express");
 const auth = require("../middleware/identification");
 const AppointmentData = require("../database/models/appointment");
 const UserData = require("../database/models/user");
+const {isValidId} = require("../utils");
 const router = new express.Router();
 router
     .get("/appointment/doctor", auth, async function (req, res) {
@@ -24,7 +25,7 @@ router
                 hour: hour
             })
         }
-        res.render("appointment_doctor", {appointments: appointments});
+        res.render("appointment/appointment_doctor", {appointments: appointments});
     })
     .post("/appointment/doctor", auth, async function (req, res) {
         if(req.user && req.user.role !== "Doctor"){
@@ -45,6 +46,10 @@ router
     .delete("/appointment/doctor/:appointment_id", auth, async function (req, res) {
         if(req.user && req.user.role !== "Doctor"){
             res.redirect("/login");
+            return;
+        }
+        if(!isValidId(req.params.appointment_id)){
+            res.send("<h1>Invalid appointment ID</h1>");
             return;
         }
         await AppointmentData.findOne({_id: req.params.appointment_id}).remove();
@@ -87,7 +92,7 @@ router
                 hour: hour
             })
         }
-        res.render("appointment", {
+        res.render("appointment/appointment_patient", {
             userId: req.user._id,
             doctors: doctors,
             appointments: appointments,
@@ -100,6 +105,10 @@ router
             return;
         }
         console.log("booking:: " + JSON.stringify(req.body))
+        if(!isValidId(req.body.appointmentId)){
+            res.send("<h1>Invalid appointment ID</h1>");
+            return;
+        }
         const appointment = await AppointmentData.findOne({_id: req.body.appointmentId});
         appointment.patientId = req.user._id;
         appointment.save();

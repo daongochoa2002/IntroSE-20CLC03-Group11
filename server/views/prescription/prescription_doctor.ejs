@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>IntroSE20CLC3_Group11</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</head>
+<body onload="()=> {alert('abc')};">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <i class="bi-house-heart" style="font-size: 2rem;"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="bi bi-calendar-check" style="font-size: 2rem;"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/personal_info">
+              <i class="bi bi-info-circle"></i>
+              Personal information
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="bi bi-file-earmark-medical"></i>
+              Medicine Prescription
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="bi bi-box-arrow-right"></i>
+              Log out
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="card-header">
+      <h2>Appointment with doctor</h2>
+    </div>
+    <table>
+      <thead>
+      <tr>
+        <th>Drug name</th>
+        <th>Dosage</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <select class="form-select" name="drug" id="drug" required>
+            <% drugs.forEach(drug => { %>
+              <option value="<%= drug._id %>"><%= drug.name %></option>
+            <% }) %>
+          </select>
+          </select>
+        </td>
+        <td>
+          <input class="form-control mr-sm-2" type="text" id="dosage"/>
+        </td>
+        <td>
+          <button class="btn btn-success float-end" onclick="addDrug()">Add</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+      <table width="1000px">
+        <thead>
+        <tr>
+          <th>Drug name</th>
+          <th>Dosage</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody id="drugTable">
+        </tbody>
+      </table>
+      <input class="form-control mr-sm-mt-2" type="text" id="note" placeholder="Note..."/>
+      <button class="btn btn-primary" onclick="savePrescription()">Save</button>
+  </div>
+
+  <footer class="bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Footer text</h5>
+
+          <p>
+            ABOUT US
+          </p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Footer text</h5>
+          <p>
+            ABOUT US
+          </p>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2022 Copyright:
+      <a class="text-dark" href="https://mdbootstrap.com/">GROUP 11</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+  <script>
+    let listDrug = [];
+    function addDrug() {
+      let drugHTML = document.getElementById("drug");
+      let drugId = drugHTML.value;
+      let drugName = drugHTML.options[drugHTML.selectedIndex].text;
+      let dosageHTML = document.getElementById("dosage");
+      let dosage = dosageHTML.value;
+      if(!dosage || dosage === "") {
+        dosageHTML.setCustomValidity("Passwords Don't Match");
+        dosageHTML.reportValidity();
+        return;
+      }
+      else {
+        dosageHTML.setCustomValidity("");
+      }
+      listDrug.push({
+        drugId: drugId,
+        dosage: dosage,
+      })
+      console.log(drugId + ", " + drugName + "," + dosage + "," + note)
+      let drugTableHTML = document.getElementById("drugTable");
+      let trHTML = document.createElement("tr");
+      trHTML.setAttribute("name", "drugId[]");
+      trHTML.setAttribute("value", drugId);
+      let tdHTML;
+      tdHTML = document.createElement("td");
+      tdHTML.appendChild(document.createTextNode(drugName));
+      trHTML.appendChild(tdHTML);
+
+      tdHTML = document.createElement("td");
+      tdHTML.appendChild(document.createTextNode(dosage));
+      trHTML.appendChild(tdHTML);
+
+      drugTableHTML.appendChild(trHTML);
+    }
+
+    function savePrescription() {
+      fetch("/prescription/add/<%=patientId%>", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          listDrug: listDrug,
+          note: getNote()
+        })
+      }).then(async res => {
+        const data = await res.json();
+        console.log("Request complete! response:", data);
+        if(data.state == "success")
+          window.location.replace(data.path);
+        else if(data.state == "fail"){
+          document.open();
+          document.write(data.text);
+          document.close();
+        }
+      });
+    }
+
+    function getNote(){
+      let noteHTML = document.getElementById("note");
+      if(noteHTML)
+        return noteHTML.value;
+      return null;
+    }
+  </script>
+</body>
+</html>

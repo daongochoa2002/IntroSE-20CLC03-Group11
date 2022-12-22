@@ -14,8 +14,9 @@
       <%= drug.date.toLocaleDateString() %>
     </div>
     <a href="/medicines" class="btn btn-secondary">All Drugs</a>
+    <% if(role === "Admin") { %>
     <a href="/medicines/edit/<%= drug.id %>" class="btn btn-info">Edit</a>
-
+    <% } %>
     <div>
       <%- drug.sanitizedHtml %>
     </div>

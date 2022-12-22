@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 
 const BloodPressureSchema = new mongoose.Schema({
-    patient: {
-        type: Schema.Types.ObjectId,
+    patientId: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
-        unique: true
+        required: true
+    },
+    doctorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    createDate: {
+        type: Date,
+        default: Date.now
     },
     sys: {
         type: Number,
