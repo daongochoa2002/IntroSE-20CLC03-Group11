@@ -8,72 +8,76 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">DPM</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <i class="bi-house-heart" style="font-size: 2rem;"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
             <li class="nav-item">
-              <a class="nav-link" href="/articles">Blog</a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-list-ul" style="font-size: 2rem;"></i>
+                </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/medicines">Medicine</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/appointment/patient">Appointment</a>
-            </li>
+
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
-              </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="/personal_info">
-                  <i class="bi bi-info-circle"></i>
-                  Personal information
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
                 </a>
-                <a class="dropdown-item" href="/blood_pressure">
-                  <i class="bi bi-info-circle"></i>
-                  Current Health State
-                </a>
-                <a class="dropdown-item" href="/logout">
-                  <i class="bi bi-box-arrow-right"></i>
-                  Log out
-                </a>
-              </div>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/personal_info">
+                        <i class="bi bi-info-circle"></i>
+                        Personal information
+                    </a>
+
+                    <a class="dropdown-item" href="/logout">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Log out
+                    </a>
+                </div>
             </li>
-          </ul>
-        </div>
-      </nav>
+
+        </ul>
+    </div>
+</nav>
 
 <div class="container">
     <div class="card-header">
-        <h2>BLOOD PRESSURE</h2>
+        <h2>PRESCRIPTIONS</h2>
         <table width="1000px">
             <thead>
                 <tr>
                     <th>Create date</th>
                     <th>Doctor's name</th>
                     <th>Patient's name</th>
-                    <th>Sys</th>
-                    <th>Dia</th>
-                    <th>Pulse</th>
+                    <th>Note</th>
+                    <th>Drugs</th>
+                    <th>Dosage</th>
                 </tr>
             </thead>
             <tbody id="data-output">
-                <% listBloodPressure.forEach(bloodPressure => { %>
+                <% prescriptions.forEach(prescription => { %>
                     <tr>
-                        <td><%= bloodPressure.createDate %></td>
-                        <td><%= bloodPressure.doctorName %></td>
-                        <td><%= bloodPressure.patientName %></td>
-                        <td><%= bloodPressure.sys %></td>
-                        <td><%= bloodPressure.dia %></td>
-                        <td><%= bloodPressure.pulse %></td>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.createDate %></td>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.doctorName %></td>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.patientName %></td>
+                        <td><%= prescription.listDrug[0].drug %></td>
+                        <td><%= prescription.listDrug[0].dosage %></td>
+                        <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.note %></td>
                     </tr>
+                    <% if(prescription.listDrug.length > 1) { %>
+                        <% for(let i = 1; i < prescription.listDrug.length; i++) { %>
+                            <tr>
+                                <td><%= prescription.listDrug[i].drug %></td>
+                                <td><%= prescription.listDrug[i].dosage %></td>
+                            </tr>
+                        <% } %>
+                    <% } %>
                 <% }) %>
             </tbody>
         </table>
