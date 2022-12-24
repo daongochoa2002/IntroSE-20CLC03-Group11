@@ -4,11 +4,17 @@ const User = require("../database/models/user");
 const router = express.Router()
 const auth = require("../middleware/identification");
 
+router.route('/articles').get(async (req, res) => {
+  const articles = await Article.find().sort({ createdAt: 'desc' })
+  res.render('articles/index', { articles: articles,userId: req.user  })
+})
+
+
 router.route('/articles/new').get(auth, (req, res) => {
   res.render('articles/new', { article: new Article() })
 })
 
-router.route('/articles/articles/edit/:id').get(auth, async (req, res) => {
+router.route('/articles/edit/:id').get(auth, async (req, res) => {
   const article = await Article.findById(req.params.id)
 
   if(article.author==req.user.id) {
@@ -19,15 +25,15 @@ router.route('/articles/articles/edit/:id').get(auth, async (req, res) => {
   else console.log('Permission denied!')
 })
 
-router.route('/articles/articles/:slug').get(auth, async (req, res) => {
+router.route('/articles/my_articles').get(auth, async (req, res) => {
+  const articles = await Article.find({author: req.user.id}).sort({ createdAt: 'desc' })
+  res.render('articles/my_articles', { articles: articles})
+})
+
+router.route('/articles/:slug').get(auth, async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
   if (article == null) res.redirect('/articles')
   res.render('articles/show', { article: article })
-})
-
-router.route('/articles').get(async (req, res) => {
-  const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('articles/index', { articles: articles })
 })
 
 router.route('/articles').post(auth, async (req, res, next) => {
