@@ -6,12 +6,12 @@ const auth = require("../middleware/identification");
 
 router.route('/articles').get(async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('articles/index', { articles: articles,userId: req.user  })
+  res.render('articles/index', { articles: articles,userId: req.user, role: req.user.role})
 })
 
 
 router.route('/articles/new').get(auth, (req, res) => {
-  res.render('articles/new', { article: new Article() })
+  res.render('articles/new', { article: new Article(), role: req.user.role })
 })
 
 router.route('/articles/edit/:id').get(auth, async (req, res) => {
@@ -19,7 +19,7 @@ router.route('/articles/edit/:id').get(auth, async (req, res) => {
 
   if(article.author==req.user.id) {
     const user = await User.findById(article.author)
-    res.render('articles/edit', { article: article, user: user })
+    res.render('articles/edit', { article: article, user: user, role: user.role })
   }
     
   else console.log('Permission denied!')
@@ -27,13 +27,13 @@ router.route('/articles/edit/:id').get(auth, async (req, res) => {
 
 router.route('/articles/my_articles').get(auth, async (req, res) => {
   const articles = await Article.find({author: req.user.id}).sort({ createdAt: 'desc' })
-  res.render('articles/my_articles', { articles: articles})
+  res.render('articles/my_articles', { articles: articles, role: req.user.role})
 })
 
 router.route('/articles/:slug').get(auth, async (req, res) => {
   const article = await Article.findOne({ slug: req.params.slug })
   if (article == null) res.redirect('/articles')
-  res.render('articles/show', { article: article })
+  res.render('articles/show', { article: article, role: req.user.role })
 })
 
 router.route('/articles').post(auth, async (req, res, next) => {
@@ -66,12 +66,13 @@ function saveArticleAndRedirect(path) {
       if (f_article == null)
         article = await Article.insertMany([article]);
       else article = await Article.updateOne(f_article,article);
-
-
-      
       res.redirect(`/articles/articles/${article.slug}`)
     } catch (e) {
-      res.render(`articles/${path}`, { article: article })
+      const user = getUserData(req);
+      let role = null;
+      if(user)
+        role = user.role
+      res.render(`articles/${path}`, { article: article, role: role })
     }
   }
 }

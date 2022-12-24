@@ -8,96 +8,59 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <i class="bi-house-heart" style="font-size: 2rem;"></i>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-list-ul" style="font-size: 2rem;"></i>
-                </a>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/personal_info">
-                        <i class="bi bi-info-circle"></i>
-                        Personal information
-                    </a>
-
-                    <a class="dropdown-item" href="/logout">
-                        <i class="bi bi-box-arrow-right"></i>
-                        Log out
-                    </a>
-                </div>
-            </li>
-
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="card-header">
-        <h2>PRESCRIPTIONS</h2>
-        <table width="1000px">
-            <thead>
-                <tr>
-                    <th>Create date</th>
-                    <th>Doctor's name</th>
-                    <th>Patient's name</th>
-                    <th>Drugs</th>
-                    <th>Dosage</th>
-                    <th>Note</th>
-                </tr>
-            </thead>
-            <tbody id="data-output">
-                <% prescriptions.forEach(prescription => { %>
-                    <% if(prescription.listDrug.length < 1) { %>
-                        <tr>
-                            <td><%= prescription.createDate %></td>
-                            <td><%= prescription.doctorName %></td>
-                            <td><%= prescription.patientName %></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    <% } else { %>
-                        <tr>
-                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.createDate %></td>
-                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.doctorName %></td>
-                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.patientName %></td>
-                            <% if(prescription.listDrug.length > 0) { %>
-                                <td><%= prescription.listDrug[0].drugName %></td>
-                                <td><%= prescription.listDrug[0].dosage %></td>
-                            <% } else { %>
-                                <td>haha</td>
-                                <td>ola</td>
-                            <% } %>
-                            <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.note %></td>
-                        </tr>
-                        <% if(prescription.listDrug.length > 1) { %>
-                            <% for(let i = 1; i < prescription.listDrug.length; i++) { %>
-                                <tr>
-                                    <td><%= prescription.listDrug[i].drug %></td>
-                                    <td><%= prescription.listDrug[i].dosage %></td>
-                                </tr>
+    <%- include('../partials/header') %>
+    <div class="container">
+        <div class="card-header">
+            <h2>PRESCRIPTIONS</h2>
+            <table width="1000px">
+                <thead>
+                    <tr>
+                        <th>Create date</th>
+                        <th>Doctor's name</th>
+                        <th>Patient's name</th>
+                        <th>Drugs</th>
+                        <th>Dosage</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody id="data-output">
+                    <% prescriptions.forEach(prescription => { %>
+                        <% if(prescription.listDrug.length < 1) { %>
+                            <tr>
+                                <td><%= prescription.createDate %></td>
+                                <td><%= prescription.doctorName %></td>
+                                <td><%= prescription.patientName %></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <% } else { %>
+                            <tr>
+                                <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.createDate %></td>
+                                <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.doctorName %></td>
+                                <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.patientName %></td>
+                                <% if(prescription.listDrug.length > 0) { %>
+                                    <td><%= prescription.listDrug[0].drugName %></td>
+                                    <td><%= prescription.listDrug[0].dosage %></td>
+                                <% } else { %>
+                                    <td>haha</td>
+                                    <td>ola</td>
+                                <% } %>
+                                <td rowspan="<%= prescription.listDrug.length %>"><%= prescription.note %></td>
+                            </tr>
+                            <% if(prescription.listDrug.length > 1) { %>
+                                <% for(let i = 1; i < prescription.listDrug.length; i++) { %>
+                                    <tr>
+                                        <td><%= prescription.listDrug[i].drug %></td>
+                                        <td><%= prescription.listDrug[i].dosage %></td>
+                                    </tr>
+                                <% } %>
                             <% } %>
                         <% } %>
-                    <% } %>
-                <% }) %>
-            </tbody>
-        </table>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
 <footer class="bg-light text-center text-lg-start">
     <!-- Grid container -->

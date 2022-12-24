@@ -6,7 +6,7 @@ const auth = require("../middleware/identification");
 
 router.route("/signup")
     .get(function (req, res) {
-        res.render("sign_up");
+        res.render("sign_up", {role: null});
     })
     .post(async function (req, res) {
         try {
@@ -28,7 +28,7 @@ router.route("/signup")
                 userIdInHospital: req.body.userIdInHospital
             })
             await newUser.save();
-            res.render("login");
+            res.render("login", {role: null});
         }catch (e){
             console.log(e);
         }
@@ -36,7 +36,7 @@ router.route("/signup")
 
 router.route("/login")
     .get(function (req, res) {
-        res.render("login");
+        res.render("login", {role: null});
     })
     .post(async function (req, res){
         //todo update remember me
@@ -50,7 +50,7 @@ router.route("/login")
             return res.redirect("/");
         }
         else {
-            res.render("login", {alertTxt: "Wrong email or password"})
+            res.render("login", {alertTxt: "Wrong email or password", role: null})
         }
     });
 

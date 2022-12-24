@@ -10,7 +10,8 @@ router.route("/personal_info")
         const user = req.user;
         if(user){
             res.render("info/personal_information", {
-                user: user
+                user: user,
+                role: req.user.role
             });
         }
         else {

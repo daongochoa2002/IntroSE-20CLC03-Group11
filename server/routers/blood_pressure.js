@@ -31,11 +31,11 @@ router.route("/blood_pressure")
                 listBloodPressure.push(bloodPressure);
             }
             console.log("listBloodPressure::" + JSON.stringify(listBloodPressure))
-            res.render("bloodPressure/blood_pressure_patient", {listBloodPressure: listBloodPressure})
+            res.render("bloodPressure/blood_pressure_patient", {listBloodPressure: listBloodPressure, role: req.user.role})
         }
         else if(role === "Doctor"){
             const patients = await UserData.find({role: "Patient"});
-            res.render("bloodPressure/blood_pressure_list_patient", {patients: patients});
+            res.render("bloodPressure/blood_pressure_list_patient", {patients: patients, role: req.user.role});
         }
         else {
             res.send("<h1>You are not allowed to view this page</h1>");
@@ -49,7 +49,8 @@ router.route("/blood_pressure/add/:patientId")
             return;
         }
         res.render("bloodPressure/blood_pressure_doctor", {
-            patientId: req.params.patientId
+            patientId: req.params.patientId,
+            role: req.user.role
         })
     })
     .post(auth, async function (req, res) {

@@ -25,7 +25,7 @@ router
                 hour: hour
             })
         }
-        res.render("appointment/appointment_doctor", {appointments: appointments});
+        res.render("appointment/appointment_doctor", {appointments: appointments, role: req.user.role});
     })
     .post("/appointment/doctor", auth, async function (req, res) {
         if(req.user && req.user.role !== "Doctor"){
@@ -96,7 +96,8 @@ router
             userId: req.user._id,
             doctors: doctors,
             appointments: appointments,
-            userAppointments: userAppointments
+            userAppointments: userAppointments,
+            role: req.user.role
         })
     })
     .post("/appointment/patient", auth, async function (req, res) {

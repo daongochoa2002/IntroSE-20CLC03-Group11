@@ -18,7 +18,7 @@ router.route('/medicines/new').get(auth, (req, res) => {
     res.send("<h1>You are not allowed to view this page</h1>");
     return;
   }
-  res.render('medicines/new', { drug: new Drug() })
+  res.render('medicines/new', { drug: new Drug(), role: req.user.role})
 })
 
 router.route('/medicines/edit/:id').get(auth, async (req, res) => {
@@ -27,7 +27,7 @@ router.route('/medicines/edit/:id').get(auth, async (req, res) => {
     return;
   }
   const drug = await Drug.findById(req.params.id)
-  res.render('medicines/edit', { drug: drug})
+  res.render('medicines/edit', { drug: drug, role: req.user.role})
 })
 
 router.route('/medicines/:slug').get(async (req, res) => {
@@ -83,7 +83,11 @@ function saveDrugAndRedirect(path) {
       
       res.redirect(`medicines/${drug[0].slug}`)
     } catch (e) {
-      res.render(`medicines/${path}`, { drug : drug })
+      const user = getUserData(req);
+      let role = null;
+      if(user)
+        role = user.role;
+      res.render(`medicines/${path}`, { drug : drug, role: role})
     }
   }
 }
@@ -91,12 +95,16 @@ function saveDrugAndRedirect(path) {
 function searchDrugAndRedirect(path) {
   return async (req, res) => {
     let name = req.body.name
+    let role = null;
+    const user = getUserData(req);
+    if(user)
+      role = user.role;
     try {
       console.log(name)
       const drugs = await Drug.find({name: { $regex: name, $options: "i" }})
-      res.render("medicines/index", {drugs: drugs})
+      res.render("medicines/index", {drugs: drugs, role: role})
     } catch (e) {
-      res.render(`medicines/${path}`, { name : name })
+      res.render(`medicines/${path}`, { name : name, role: role })
     }
   }
 }

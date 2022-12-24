@@ -12,7 +12,7 @@ router
             return;
         }
         const users = await UserData.find({role: {$ne: "Admin"}});
-        res.render("admin/manage_account", {users: users});
+        res.render("admin/manage_account", {users: users, role: req.user.role});
     })
     .get("/admin/manage_account/edit/:id", auth, async function (req, res) {
         if(req.user && req.user.role !== "Admin"){
@@ -37,7 +37,8 @@ router
         console.log("edit user:: " + JSON.stringify(user))
         res.render("admin/create_account", {
             user: user,
-            type: "edit"
+            type: "edit",
+            role: req.user.role
         })
     })
     .post("/admin/manage_account/edit/:id", auth, async function (req, res) {
@@ -81,7 +82,7 @@ router
             res.redirect("/login");
             return;
         }
-        res.render("admin/create_account", {user: {}, type: "create"})
+        res.render("admin/create_account", {user: {}, type: "create", role: req.user.role})
     })
 
 module.exports = router;

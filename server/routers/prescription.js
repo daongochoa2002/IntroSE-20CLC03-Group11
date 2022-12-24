@@ -38,11 +38,11 @@ router.route("/prescription")
                 prescriptions.push(prescription)
             }
             console.log("prescriptions::" + JSON.stringify(prescriptions))
-            res.render("prescription/prescription_patient", {prescriptions: prescriptions})
+            res.render("prescription/prescription_patient", {prescriptions: prescriptions, role: req.user.role})
         }
         else if(role === "Doctor"){
             const patients = await UserData.find({role: "Patient"});
-            res.render("prescription/prescription_list_patient", {patients: patients});
+            res.render("prescription/prescription_list_patient", {patients: patients, role: req.user.role});
         }
         else {
             res.send("<h1>You are not allowed to view this page</h1>");
@@ -59,7 +59,8 @@ router.route("/prescription/add/:patientId")
         const drugs = await DrugData.find().sort({name: 1});
         res.render("prescription/prescription_doctor", {
             patientId: patientId,
-            drugs: drugs
+            drugs: drugs,
+            role: req.user.role
         })
     })
     .post(auth, async function (req, res) {

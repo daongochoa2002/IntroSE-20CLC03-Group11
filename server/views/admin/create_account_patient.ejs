@@ -8,51 +8,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <i class="bi-house-heart" style="font-size: 2rem;"></i>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/chose_edit_appointment">
-                    <i class="bi bi-calendar-check" style="font-size: 2rem;"></i>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/chose_edit_medicine">
-                    <i class="bi bi-capsule" style="font-size: 2rem;"></i>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/manage_account">
-                    <i class="bi bi-person-fill-gear" style="font-size: 2rem;"></i>
-                </a>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/personal_info">
-                        <i class="bi bi-info-circle"></i>
-                        Personal information
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="bi bi-box-arrow-right"></i>
-                        Log out
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+    <%- include('../partials/header') %>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
