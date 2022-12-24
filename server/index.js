@@ -41,6 +41,7 @@ app.listen(PORT, function () {
     console.log("Server start port: " + PORT);
 })
 
+app.use( express.static( "public" ) );
 app.use(homeRouter);
 app.use(authorizationRouter);
 app.use(infoRouter);

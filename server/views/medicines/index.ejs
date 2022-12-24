@@ -8,22 +8,54 @@
   <title>Medicine</title>
 </head>
 <body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">DPM</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/articles">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/medicines">Medicine<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/appointment/patient">Appointment</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/personal_info">
+              <i class="bi bi-info-circle"></i>
+              Personal information
+            </a>
+
+            <a class="dropdown-item" href="/logout">
+              <i class="bi bi-box-arrow-right"></i>
+              Log out
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
   <div class="container">
     <h1 class="mb-4">Medicines</h1>
 
-    <%if(role === "Admin") { %>
-      <a href="/medicines/new" class="btn btn-success mb-2">Add Drug</a>
-    <% } %>
-    <form action="/medicines/search" method="POST" class="row">
-      <div class="col">
-        <div class="form-group">
-          <input required type="text" name="name" id="name" class="form-control">
-        </div>
-      </div>
-      <div class="col">
-        <button type="submit" class="btn btn-primary">Search</button>
-      </div>
-    </form>
+    <a href="/medicines/new" class="btn btn-success">Add Drug</a>
+    <a href="/medicines/search" class="btn btn-info">Search</a>
+    <a href="/prescription" class="btn btn-primary">My prescription</a>
     
     <% drugs.forEach(drug => { %>
       <div class="card mt-4">
@@ -38,5 +70,42 @@
       </div>
     <% }) %>
   </div>
+
+  <footer class="bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Footer text</h5>
+
+          <p>
+            ABOUT US
+          </p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Footer text</h5>
+
+          <p>
+            ABOUT US
+          </p>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2022 Copyright:
+      <a class="text-dark" href="https://mdbootstrap.com/">GROUP 11</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
 </body>
 </html>
