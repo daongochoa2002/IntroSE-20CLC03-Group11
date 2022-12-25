@@ -14,10 +14,7 @@ const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 const methodOverride = require('method-override')
-const Article = require('./database/models/article')
-const Drug = require('./database/models/drug')
 const {runConfig} = require("./config/config")
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,12 +23,9 @@ app.use(methodOverride('_method'))
 
 const publicPath = path.join(__dirname, "views/"); // link to css/img
 const viewsPath = path.join(__dirname, "views/"); //link to views (HTML/HBS/ejs)
-// const PartialPath = path.join(__dirname, "templates/partials");
 
 app.set("views", viewsPath);
-// app.set("view engine", "hbs");
 app.set("view engine", "ejs");
-// hbs.registerPartials(PartialPath); ///Header and Footer register
 
 app.use(express.static(publicPath));
 app.use(express.json()); // every object automatically turn into JSON formatted
