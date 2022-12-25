@@ -16,6 +16,8 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override')
 const {runConfig} = require("./config/config")
+const {crawlDrugAPI} = require("./utils/index")
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -30,8 +32,9 @@ app.set("view engine", "ejs");
 app.use(express.static(publicPath));
 app.use(express.json()); // every object automatically turn into JSON formatted
 
-app.listen(PORT, function () {
-    runConfig();
+app.listen(PORT, async function () {
+    await runConfig();
+    await crawlDrugAPI(false);
     console.log("Server start port: " + PORT);
 })
 

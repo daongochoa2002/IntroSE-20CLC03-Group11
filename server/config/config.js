@@ -22,7 +22,7 @@ const createAdminAccount = async function (){
     }
 }
 
-const runConfig = function () {
+const runConfig = async function () {
     createAdminAccount();
 }
 

@@ -10,15 +10,12 @@
 <body>
   <%- include('../partials/header') %>
   <div class="container">
-    <h1 class="mb-1"><%= drug.name %></h1>
-    <div class="text-muted mb-2">
-      <%= drug.date.toLocaleDateString() %>
-    </div>
     <% if(role === "Admin") { %>
-    <a href="/medicines/edit/<%= drug.id %>" class="btn btn-info">Edit</a>
+      <a href="/medicines/edit/<%= drug.id %>" class="btn btn-info">Edit</a>
     <% } %>
+    <h1 class="mb-1"><%= drug.name %></h1>
     <div>
-      <%- drug.sanitizedHtml %>
+      <%- drug.description %>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

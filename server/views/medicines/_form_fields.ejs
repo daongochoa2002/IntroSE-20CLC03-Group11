@@ -3,12 +3,8 @@
   <input required value="<%= drug.name %>" type="text" name="name" id="name" class="form-control">
 </div>
 <div class="form-group">
-  <label for="condition">Condition</label>
-  <textarea name="condition" id="condition" class="form-control"><%= drug.condition %></textarea>
-</div>
-<div class="form-group">
-  <label for="review">Review</label>
-  <textarea required name="review" id="review" class="form-control"><%= drug.review %></textarea>
+  <label for="description">Description</label>
+  <textarea name="description" id="description" class="form-control"><%= drug.description %></textarea>
 </div>
 
 <a href="/medicines" class="btn btn-secondary">Cancel</a>

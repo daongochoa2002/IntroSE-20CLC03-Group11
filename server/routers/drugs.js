@@ -9,7 +9,7 @@ router.route('/medicines').get(async (req, res) => {
     const user = await getUserData(req);
     console.log("medicines user:: " + JSON.stringify(user))
     console.log(user ? user.role : null)
-    const drugs = await Drug.find().sort({ date: 'desc' })
+    const drugs = await Drug.find().sort({ name: 1 })
     res.render('medicines/index', { drugs: drugs, role: user ? user.role : null})
   }catch (e){
     console.log(e);
@@ -91,8 +91,7 @@ function saveDrugAndRedirect(path) {
   return async (req, res) => {
     let drug = req.drug
     drug.name = req.body.name
-    drug.condition = req.body.condition
-    drug.review = req.body.review
+    drug.description = req.body.description
     try {
       const f_drug = await Drug.findById(drug.id)
       console.log(path)
@@ -131,4 +130,5 @@ function searchDrugAndRedirect(path) {
     }
   }
 }
+
 module.exports = router

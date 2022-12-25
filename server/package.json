@@ -22,6 +22,8 @@
     "marked": "^4.2.3",
     "method-override": "^3.0.0",
     "mongoose": "^5.13.15",
+    "node-fetch": "^3.3.0",
+    "node-fetch-commonjs": "^3.2.4",
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "slugify": "^1.6.5",
