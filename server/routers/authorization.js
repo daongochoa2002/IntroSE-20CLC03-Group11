@@ -39,25 +39,32 @@ router.route("/login")
         res.render("login", {role: null});
     })
     .post(async function (req, res){
-        //todo update remember me
-        res.clearCookie("Authorization");
-        console.log("login req = " + JSON.stringify(req.body))
-        const user = await UserData.findByCredential(req.body.email, req.body.password);
-        if(user){
-            console.log("user info " + JSON.stringify(user))
-            const token = await user.createToken();
-            res.cookie("Authorization", token);
-            return res.redirect("/");
-        }
-        else {
-            res.render("login", {alertTxt: "Wrong email or password", role: null})
+        try {
+            res.clearCookie("Authorization");
+            console.log("login req = " + JSON.stringify(req.body))
+            const user = await UserData.findByCredential(req.body.email, req.body.password);
+            if(user){
+                console.log("user info " + JSON.stringify(user))
+                const token = await user.createToken();
+                res.cookie("Authorization", token);
+                return res.redirect("/");
+            }
+            else {
+                res.render("login", {alertTxt: "Wrong email or password", role: null})
+            }
+        }catch (e){
+            console.log(e);
         }
     });
 
 router.route("/logout")
     .get(function (req, res) {
-        res.cookie("Authorization", "");
-        res.redirect("/login");
+        try {
+            res.cookie("Authorization", "");
+            res.redirect("/login");
+        }catch (e){
+            console.log(e);
+        }
     })
 
 module.exports = router;
