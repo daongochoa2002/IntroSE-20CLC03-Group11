@@ -69,11 +69,13 @@ function saveArticleAndRedirect(path) {
     article.author = req.user
     try {
       const f_article = await Article.findById(article.id)
-      console.log(article)
+      console.log("article:: " + JSON.stringify(article));
       if (f_article == null)
         article = await Article.insertMany([article]);
       else article = await Article.updateOne(f_article,article);
-      res.redirect(`/articles/articles/${article.slug}`)
+
+      // res.redirect(`/articles/${article.slug}`)
+      res.redirect(`/articles`)
     } catch (e) {
       const user = await getUserData(req);
       let role = null;
