@@ -7,10 +7,14 @@ const getUserData = async function (req) {
     if(!token || token == ""){
         return null;
     }
+    console.log("token " + token)
     const decode = jwt.verify(token, TOKEN_HASH_KEY);
+    console.log("decode: " + JSON.stringify(decode))
     const user = await User.findOne({_id: decode._id});
-    if(!user)
+    console.log("user:: " + JSON.stringify(user))
+    if(!user){
         return null;
+    }
     return user;
 }
 

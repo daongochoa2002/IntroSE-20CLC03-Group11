@@ -83,7 +83,7 @@ function saveDrugAndRedirect(path) {
       
       res.redirect(`medicines/${drug[0].slug}`)
     } catch (e) {
-      const user = getUserData(req);
+      const user = await getUserData(req);
       let role = null;
       if(user)
         role = user.role;
@@ -96,7 +96,7 @@ function searchDrugAndRedirect(path) {
   return async (req, res) => {
     let name = req.body.name
     let role = null;
-    const user = getUserData(req);
+    const user = await getUserData(req);
     if(user)
       role = user.role;
     try {

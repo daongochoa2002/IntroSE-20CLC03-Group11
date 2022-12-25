@@ -3,10 +3,17 @@ const Article = require("../database/models/article")
 const User = require("../database/models/user");
 const router = express.Router()
 const auth = require("../middleware/identification");
+const {getUserData} = require("../utils");
 
 router.route('/articles').get(async (req, res) => {
   const articles = await Article.find().sort({ createdAt: 'desc' })
-  res.render('articles/index', { articles: articles,userId: req.user, role: req.user.role})
+  const user = await getUserData(req);
+  console.log("user:: " + JSON.stringify(user))
+  let role = null;
+  if(user)
+    role = user.role;
+  console.log("role:: " + role)
+  res.render('articles/index', { articles: articles,userId: req.user, role: role})
 })
 
 
@@ -68,7 +75,7 @@ function saveArticleAndRedirect(path) {
       else article = await Article.updateOne(f_article,article);
       res.redirect(`/articles/articles/${article.slug}`)
     } catch (e) {
-      const user = getUserData(req);
+      const user = await getUserData(req);
       let role = null;
       if(user)
         role = user.role
