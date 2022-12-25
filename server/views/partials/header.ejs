@@ -9,9 +9,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/articles">Blog</a>
-            </li>
+            <% if(role && role !== "Admin") { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/articles">Blog</a>
+                </li>
+            <% } %>
             <li class="nav-item">
                 <a class="nav-link" href="/medicines">Medicine</a>
             </li>
@@ -28,6 +30,11 @@
             <% if(role && role === "Patient") { %>
                 <li class="nav-item">
                     <a class="nav-link" href="/appointment/patient">Appointment</a>
+                </li>
+            <% } %>
+            <% if(role && role !== "Admin") { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/prescription">Prescription</a>
                 </li>
             <% } %>
             <% if(role && role === "Admin") { %>

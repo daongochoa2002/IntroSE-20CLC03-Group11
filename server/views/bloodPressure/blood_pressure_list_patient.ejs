@@ -40,8 +40,13 @@
                         <td><%= patient.phoneNumber %></td>
                         <td><%= patient.userIdInHospital %></td>
                         <td>
+                            <form action="/blood_pressure/<%= patient._id %>" method="GET">
+                                <button type="submit" class="btn btn-primary">Info</button>
+                            </form>
+                        </td>
+                        <td>
                             <form action="/blood_pressure/add/<%= patient._id %>" method="GET">
-                                <button type="submit" class="btn btn-primary">Add Blood Pressure</button>
+                                <button type="submit" class="btn btn-success">Add</button>
                             </form>
                         </td>
                     </tr>

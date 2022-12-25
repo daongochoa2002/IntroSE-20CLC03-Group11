@@ -24,7 +24,6 @@ router.route("/prescription")
                 let prescription = {}
                 prescription.createDate = getDateStr(dataPrescription.createDate);
                 prescription.doctorName = (await UserData.findById(dataPrescription.doctorId)).getName();
-                prescription.patientName = (await UserData.findById(dataPrescription.patientId)).getName();
                 prescription.note = dataPrescription.note;
                 let listDrug = [];
                 let drug;
@@ -48,6 +47,45 @@ router.route("/prescription")
             res.send("<h1>You are not allowed to view this page</h1>");
         }
     });
+
+router.route("/prescription/:patientId")
+    .get(auth, async function(req, res) {
+        const user = req.user;
+        if(!user){
+            res.send("<h1>Error user null</h1>");
+            return;
+        }
+        const role = user.role;
+        if(role === "Doctor"){
+            if(!isValidId(req.params.patientId)){
+                res.send("<h1>Patient not exist</h1>");
+                return;
+            }
+            const dataPrescriptions = await PrescriptionData.find({patientId: req.params.patientId})
+            const prescriptions = []
+            for(const dataPrescription of dataPrescriptions){
+                let prescription = {}
+                prescription.createDate = getDateStr(dataPrescription.createDate);
+                prescription.doctorName = (await UserData.findById(dataPrescription.doctorId)).getName();
+                prescription.note = dataPrescription.note;
+                let listDrug = [];
+                let drug;
+                for(const dataDrug of dataPrescription.listDrug){
+                    drug = {};
+                    drug.drugName = (await DrugData.findById(dataDrug.drugId)).name;
+                    drug.dosage = dataDrug.dosage;
+                    listDrug.push(drug);
+                }
+                prescription.listDrug = listDrug;
+                prescriptions.push(prescription)
+            }
+            console.log("prescriptions::" + JSON.stringify(prescriptions))
+            res.render("prescription/prescription_patient", {prescriptions: prescriptions, role: req.user.role})
+        }
+        else {
+            res.send("<h1>You are not allowed to view this page</h1>");
+        }
+    })
 
 router.route("/prescription/add/:patientId")
     .get(auth, async function (req, res) {

@@ -18,6 +18,7 @@ router
             const hour = dateTime.getHours() + ":" + dateTime.getMinutes();
             const patient = await UserData.findOne({_id: dataAppointment.patientId});
             appointments.push({
+                _id: dataAppointment._id,
                 patientName: patient ? patient.getName() : null,
                 doctorId: dataAppointment.doctorId,
                 patientId: dataAppointment.patientId,
