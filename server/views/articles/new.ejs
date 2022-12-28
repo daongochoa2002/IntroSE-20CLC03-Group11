@@ -1,39 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
   <title>Blog</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <style>
+    body{
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #FEEEDF;
+    }
+    h2, label{
+      color: DodgerBlue;
+    }
+    textarea, input[type=text]{
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      display: inline-block;
+      border: none;
+      width:100%;
+      resize: vertical;
+      padding:15px;
+      border-radius:15px;
+      border:0;
+      box-shadow:4px 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
   <%- include('../partials/header') %>
-  <div class="container">
-    <h1 class="mb-4">New Article</h1>
+  <div class="row" style="width: 100%">
+    <div class="col-2">
+      <img src="/home/assets/img/background/cau_doi_2.png" width="180px">
+      <img src="/home/assets/img/background/tet2023.png" width="180px">
+    </div>
+    <div class="col-8">
+      <div class="container">
+        <h1 class="mb-4">New Article</h1>
 
-    <form action="/articles" method="POST">
-      <%- include('_form_fields') %>
-    </form>
+        <form action="/articles" method="POST">
+          <%- include('_form_fields') %>
+        </form>
+      </div>
+    </div>
+    <div class="col-2">
+      <img src="/home/assets/img/background/ruy_bang.png" width="180px" align="right">
+      <img src="/home/assets/img/background/HNY2023.png" width="180px" align="right">
+    </div>
   </div>
 
   <!-- Footer-->
-<footer class="footer py-4">
-  <div class="container">
-      <div class="row align-items-center">
-          <div class="col-lg-4 text-lg-start">Copyright &copy; DPM 2022</div>
-          <div class="col-lg-4 my-3 my-lg-0">
-              <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-              <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="col-lg-4 text-lg-end">
-              <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-              <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-          </div>
-      </div>
-  </div>
-</footer>
+  <%- include('../partials/footer') %>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
