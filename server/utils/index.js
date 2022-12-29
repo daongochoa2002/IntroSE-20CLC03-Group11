@@ -25,6 +25,8 @@ const isValidId = function (id) {
 }
 
 const getDateStr = function (time){
+    if(!time)
+        return null;
     const dateTime = new Date(time);
     return dateTime.getDate() + "-" + (dateTime.getMonth() + 1) + "-" + dateTime.getFullYear();
 }

@@ -2,7 +2,7 @@ const express = require("express");
 const auth = require("../middleware/identification");
 const AppointmentData = require("../database/models/appointment");
 const UserData = require("../database/models/user");
-const {isValidId} = require("../utils");
+const {isValidId, getDateStr, convertDateToStr} = require("../utils");
 const router = new express.Router();
 
 router
@@ -12,7 +12,10 @@ router
                 res.redirect("/login");
                 return;
             }
-            const users = await UserData.find({role: {$ne: "Admin"}});
+            let users = await UserData.find({role: {$ne: "Admin"}});
+            for(let i = 0; i < users.length; i++){
+                users[i].dateOfBirthStr = getDateStr(users[i].dateOfBirth);
+            }
             res.render("admin/manage_account", {users: users, role: req.user.role});
         }catch (e){
             console.log(e);
