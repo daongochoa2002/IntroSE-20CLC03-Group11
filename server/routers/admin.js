@@ -2,7 +2,7 @@ const express = require("express");
 const auth = require("../middleware/identification");
 const AppointmentData = require("../database/models/appointment");
 const UserData = require("../database/models/user");
-const {isValidId, getDateStr, convertDateToStr} = require("../utils");
+const {isValidId, getDateStr} = require("../utils");
 const router = new express.Router();
 
 router
