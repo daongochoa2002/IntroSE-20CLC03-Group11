@@ -27,7 +27,8 @@ router.route("/prescription")
                     let drug;
                     for(const dataDrug of dataPrescription.listDrug){
                         drug = {};
-                        drug.drugName = (await DrugData.findById(dataDrug.drugId)).name;
+                        let drugDB = await DrugData.findById(dataDrug.drugId)
+                        drug.drugName = drugDB ? drugDB.name : null;
                         drug.dosage = dataDrug.dosage;
                         listDrug.push(drug);
                     }
