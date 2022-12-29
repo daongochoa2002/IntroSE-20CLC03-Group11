@@ -84,7 +84,7 @@
                 <% } else { %>
                 <h2>Edit account</h2>
                 <% } %>
-                <form class="form-horizontal" role="form" method="post" action=<%= type === "create" ? '/signup' : '/admin/manage_account/edit/' + user._id%>>
+                <form class="form-horizontal" role="form" method="post" action=<%= type === "create" ? '/admin/manage_account/create' : '/admin/manage_account/edit/' + user._id%>>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-3">

@@ -106,5 +106,29 @@ router
             console.log(e);
         }
     })
+    .post("/admin/manage_account/create", auth, async function (req, res) {
+        try {
+            let date = null;
+            if(req.body.dateOfBirth){
+                const dateParts = req.body.dateOfBirth.split("-");
+                date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+            }
+            const newUser = new UserData({
+                email: req.body.email,
+                password: req.body.password,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                role: req.body.role,
+                gender: req.body.gender,
+                dateOfBirth: date,
+                phoneNumber: req.body.phoneNumber,
+                userIdInHospital: req.body.userIdInHospital
+            })
+            await newUser.save();
+            res.redirect("/admin/manage_account")
+        }catch (e){
+            console.log(e);
+        }
+    })
 
 module.exports = router;
