@@ -1,12 +1,15 @@
+require("./database/mongoose")
 const {PORT} = require("./constants")
 const express = require("express");
 const homeRouter = require("./routers/home");
-const authorizationRouter = require("./routers/authorization")
+const authorizationRouter = require("./routers/authorization");
+const infoRouter = require("./routers/info");
 const app = express();
 const hbs = require("hbs");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -28,3 +31,4 @@ app.listen(PORT, function () {
 
 app.use(homeRouter);
 app.use(authorizationRouter);
+app.use(infoRouter);

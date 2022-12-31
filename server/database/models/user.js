@@ -20,26 +20,37 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    "name": {
+    "firstName": {
         type: String,
         required: true
     },
-    "age": {
+    "lastName": {
         type: String,
         required: true
+    },
+    "dateOfBirth": {
+        type: String,
     },
     "role": {
         type: String,
-        enum: ["DOCTOR", "PATIENT"],
+        enum: ["Doctor", "Patient"],
         required: true
     },
-    "tokens": {
-        type: Map
+    "gender": {
+        type: String,
+        enum: ["Male", "Female"],
+        required: true
+    },
+    "phoneNumber": {
+        type: Number
     },
     "userIdInHospital": {
         type: String,
         unique: true,
     }
+    // "tokens": { //todo check
+    //     type: Map
+    // }
 });
 
 UserSchema.statics.findByCredential = async function (email, password) {
@@ -51,9 +62,12 @@ UserSchema.statics.findByCredential = async function (email, password) {
 
 UserSchema.methods.createToken = async function () {
     const user = this;
-    const token = jwt.sign({id: user._id, role: user.role}, TOKEN_HASH_KEY);
-    user.tokens = user.tokens.set(token, "");
-    await user.save();
+    const token = jwt.sign({_id: user._id}, TOKEN_HASH_KEY);
+    console.log("userId: " + user._id)
+    // if(!user.tokens) //todo check
+    //     user.tokens = {};
+    // user.tokens = user.tokens[token] = "";
+    // await user.save();
     return token;
 }
 

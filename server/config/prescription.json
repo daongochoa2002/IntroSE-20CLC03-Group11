@@ -2,6 +2,7 @@
     {
         "createDate": "10-11-2022",
         "doctorName": "Nguyễn Văn A",
+        "doctorId":
         "patientName": "Nguyễn Thị B",
         "note": "Kiểm tra lại vào tuần sau",
         "listDrug": [
