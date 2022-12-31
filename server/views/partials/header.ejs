@@ -1,4 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<style>
+    nav{
+        font-family: "Classic Grotesque";
+        background: #FDBDA0;
+        background-image: url("/home/assets/img/background/hoa_dao.png");
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <img src="/home/assets/img/background/cau-doi.png" width="80px">
     <a class="navbar-brand" href="/">DPM</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,39 +15,52 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">
+                    <i class="fa fa-house" style="font-size: 2.5rem;"></i>
+                    <span class="sr-only">(current)</span></a>
             </li>
             <% if(role && role !== "Admin") { %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/articles">Blog</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/articles">
+                        <i class="fa-brands fa-blogger" aria-hidden="true" style="font-size: 2.5rem"></i>
+                    </a>
                 </li>
             <% } %>
             <li class="nav-item">
-                <a class="nav-link" href="/medicines">Medicine</a>
+                <a class="nav-link" href="/medicines">
+                    <i class="fa fa-capsules" style="font-size: 2.5rem;"></i>
+                </a>
             </li>
             <% if(role && role !== "Admin") { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/blood_pressure">Blood Pressure</a>
+                    <a class="nav-link" href="/blood_pressure">
+                        <i class="fa fa-heart" aria-hidden="true" style="font-size: 2.5rem"></i></a>
                 </li>
             <% } %>
             <% if(role && role === "Doctor") { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/appointment/doctor">Appointment</a>
+                    <a class="nav-link" href="/appointment/doctor">
+                        <i class="fa-solid fa-calendar-check" aria-hidden="true" style="font-size: 2.5rem"></i></a>
                 </li>
             <% } %>
             <% if(role && role === "Patient") { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/appointment/patient">Appointment</a>
+                    <a class="nav-link" href="/appointment/patient">
+                        <i class="fa fa-calendar-check" aria-hidden="true" style="font-size: 2.5rem"></i></a>
                 </li>
             <% } %>
             <% if(role && role !== "Admin") { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/prescription">Prescription</a>
+                    <a class="nav-link" href="/prescription">
+                        <i class="fa fa-file-prescription" aria-hidden="true" style="font-size: 2.5rem"></i>
+                    </a>
                 </li>
             <% } %>
             <% if(role && role === "Admin") { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/manage_account">Manage Account</a>
+                    <a class="nav-link" href="/admin/manage_account">
+                        <i class="fa fa-gears" aria-hidden="true" style="font-size: 2rem"></i>
+                    </a>
                 </li>
             <% } %>
             <li class="nav-item dropdown">
@@ -69,4 +90,5 @@
             </li>
         </ul>
     </div>
+    <img src="/home/assets/img/background/2023.png" height="100px">
 </nav>
