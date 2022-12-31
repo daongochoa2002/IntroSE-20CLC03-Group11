@@ -36,8 +36,6 @@
           <div class="text-muted mb-2">
             <%= article.createdAt.toLocaleDateString() %>
           </div>
-          <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
-
           <div>
             <%- article.sanitizedHtml %>
           </div>
