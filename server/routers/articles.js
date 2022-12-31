@@ -35,7 +35,8 @@ router.route('/articles/edit/:id').get(auth, async (req, res) => {
 
     if(article.author==req.user.id) {
       const user = await User.findById(article.author)
-      res.render('articles/edit', { article: article, user: user, role: user.role })
+
+      res.render('articles/edit', { article: article, role: user.role })
     }
 
     else console.log('Permission denied!')
@@ -101,12 +102,12 @@ function saveArticleAndRedirect(path) {
     article.author = req.user
     try {
       const f_article = await Article.findById(article.id)
-      console.log("article:: " + JSON.stringify(article));
       if (f_article == null)
-        article = await Article.insertMany([article]);
+      f_article = await Article.insertMany([article]);
       else article = await Article.updateOne(f_article,article);
-
-      res.redirect(`/articles/${article[0].slug}`)
+      console.log('.............')
+      console.log(f_article)
+      res.redirect(`/articles/${f_article.slug}`)
       // res.redirect(`/articles`)
     } catch (e) {
       const user = await getUserData(req);
