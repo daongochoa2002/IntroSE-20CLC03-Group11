@@ -75,6 +75,14 @@
                         </a>
                     <% } %>
 
+                    <% if(role && role !== "Admin") { %>
+                        <a class="dropdown-item" href="/articles/my_articles">
+                            <i class="bi bi-info-circle"></i>
+                            My articles
+                        </a>
+                    <% } %>
+
+
                     <% if(!role) { %>
                         <a class="dropdown-item" href="/login">
                             <i class="bi bi-box-arrow-in-left"></i>
