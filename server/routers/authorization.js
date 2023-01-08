@@ -15,6 +15,10 @@ router.route("/signup")
             if(req.body.dateOfBirth){
                 const dateParts = req.body.dateOfBirth.split("-");
                 date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                if(Date.now() < date.getTime()){
+                    res.send("<h1>Wrong date of birth</h1>");
+                    return;
+                }
             }
             const newUser = new UserData({
                 email: req.body.email,

@@ -34,7 +34,7 @@ app.use(express.json()); // every object automatically turn into JSON formatted
 
 app.listen(PORT, async function () {
     await runConfig();
-    await crawlDrugAPI(false);
+    await crawlDrugAPI();
     console.log("Server start port: " + PORT);
 })
 

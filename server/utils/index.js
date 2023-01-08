@@ -31,9 +31,7 @@ const getDateStr = function (time){
     return dateTime.getDate() + "-" + (dateTime.getMonth() + 1) + "-" + dateTime.getFullYear();
 }
 
-const crawlDrugAPI = async function (isCrawl){
-    if(!isCrawl)
-        return;
+const crawlDrugAPI = async function (){
     const path1 = "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-ke-don";
     const path2 = "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-khong-ke-don";
     let res = await fetch(path1);
@@ -42,11 +40,15 @@ const crawlDrugAPI = async function (isCrawl){
     res = await fetch(path2);
     json = await res.json();
     drugs = drugs.concat(json.data.products.edges);
+    console.log("length::" + drugs.length);
     for(const drug of drugs){
         const name = drug.node.name;
-        const description = drug.node.longDescription
-        let dataDrug = new Drug({name: name, description: description}) //fixme fix here
-        await dataDrug.save();
+        const drugDB = await Drug.findOne({name: name});
+        if(!drugDB){
+            const description = drug.node.longDescription
+            let dataDrug = new Drug({name: name, description: description}) //fixme fix here
+            await dataDrug.save();
+        }
     }
 }
 
