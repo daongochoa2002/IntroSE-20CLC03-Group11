@@ -41,7 +41,6 @@ router.route("/personal_info/edit/:id")
             user.phoneNumber = req.body.phoneNumber;
             user.userIdInHospital = req.body.userIdInHospital;
             if(req.body.dateOfBirth){
-                console.log("here::")
                 const dateParts = req.body.dateOfBirth.split("-");
                 const dob = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
                 if(Date.now() < dob.getTime()){

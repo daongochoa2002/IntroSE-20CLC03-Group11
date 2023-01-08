@@ -46,7 +46,7 @@ const crawlDrugAPI = async function (){
         const drugDB = await Drug.findOne({name: name});
         if(!drugDB){
             const description = drug.node.longDescription
-            let dataDrug = new Drug({name: name, description: description}) //fixme fix here
+            let dataDrug = new Drug({name: name, description: description})
             await dataDrug.save();
         }
     }
