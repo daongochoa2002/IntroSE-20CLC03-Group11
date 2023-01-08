@@ -3,6 +3,7 @@ const UserData = require("../database/models/user");
 const path = require("path");
 const router = new express.Router();
 const auth = require("../middleware/identification");
+const {showError} = require("../utils");
 
 router.route("/signup")
     .get(function (req, res) {
@@ -16,7 +17,7 @@ router.route("/signup")
                 const dateParts = req.body.dateOfBirth.split("-");
                 date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
                 if(Date.now() < date.getTime()){
-                    res.send("<h1>Wrong date of birth</h1>");
+                    showError(res, "Wrong date of birth", "/signup");
                     return;
                 }
             }

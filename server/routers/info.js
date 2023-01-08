@@ -2,7 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const auth = require("../middleware/identification");
 const UserData = require("../database/models/user");
-const {isValidId} = require("../utils");
+const {isValidId, showError} = require("../utils");
 
 router.route("/personal_info")
     .get(auth, function (req, res) {
@@ -44,7 +44,7 @@ router.route("/personal_info/edit/:id")
                 const dateParts = req.body.dateOfBirth.split("-");
                 const dob = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
                 if(Date.now() < dob.getTime()){
-                    res.send("<h1>Wrong date of birth</h1>");
+                    showError(res, "Wrong date of birth", "/personal_info");
                     return;
                 }
                 user.dateOfBirth = dob;

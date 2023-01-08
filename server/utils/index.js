@@ -52,4 +52,12 @@ const crawlDrugAPI = async function (){
     }
 }
 
-module.exports = {getUserData, isValidId, getDateStr, crawlDrugAPI}
+const showError = function (res, error, path){
+    if(!error)
+        error = "";
+    if(!path)
+        path = "";
+    res.render("error", {error: error, path: path, role: ""})
+}
+
+module.exports = {getUserData, isValidId, getDateStr, crawlDrugAPI, showError}
