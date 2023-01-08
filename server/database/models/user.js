@@ -45,7 +45,7 @@ const UserSchema = new mongoose.Schema({
         type: Number
     },
     "userIdInHospital": {
-        type: String,
+        type: String
     }
 });
 
@@ -58,10 +58,6 @@ UserSchema.methods.createToken = async function () {
     const user = this;
     const token = jwt.sign({_id: user._id}, TOKEN_HASH_KEY);
     console.log("userId: " + user._id)
-    // if(!user.tokens) //todo check
-    //     user.tokens = {};
-    // user.tokens = user.tokens[token] = "";
-    // await user.save();
     return token;
 }
 

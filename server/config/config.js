@@ -22,8 +22,18 @@ const createAdminAccount = async function (){
     }
 }
 
+const getListBloodPressureHospitalAPI = async function (){
+    const file = await fs.readFileSync(path.join(__dirname, "../config/json/blood_pressure.json"));
+    return JSON.parse(file);
+}
+
+const getListPrescriptionHospitalAPI = async function (){
+    const file = await fs.readFileSync(path.join(__dirname, "../config/json/prescription.json"));
+    return JSON.parse(file);
+}
+
 const runConfig = async function () {
     createAdminAccount();
 }
 
-module.exports = {runConfig}
+module.exports = {runConfig, getListPrescriptionHospitalAPI, getListBloodPressureHospitalAPI}

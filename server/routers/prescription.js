@@ -5,6 +5,7 @@ const DrugData = require("../database/models/drug")
 const UserData = require("../database/models/user")
 const PrescriptionData = require("../database/models/prescription")
 const {isValidId, getDateStr} = require("../utils");
+const {getListPrescriptionHospitalAPI} = require("../config/config");
 
 router.route("/prescription")
     .get(auth, async function (req, res) {
@@ -29,6 +30,26 @@ router.route("/prescription")
                         drug = {};
                         let drugDB = await DrugData.findById(dataDrug.drugId)
                         drug.drugName = drugDB ? drugDB.name : null;
+                        drug.dosage = dataDrug.dosage;
+                        listDrug.push(drug);
+                    }
+                    prescription.listDrug = listDrug;
+                    prescriptions.push(prescription)
+                }
+                const listPrescriptionDataAPI = await getListPrescriptionHospitalAPI();
+                for(const prescriptionDataAPI of listPrescriptionDataAPI){
+                    let prescription = {}
+                    prescription.createDate = getDateStr(prescriptionDataAPI.createDate);
+                    if(prescriptionDataAPI.doctorIdInHospital)
+                        prescription.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: prescriptionDataAPI.doctorIdInHospital})).getName();
+                    else
+                        prescription.doctorName = null;
+                    prescription.note = prescriptionDataAPI.note;
+                    let listDrug = [];
+                    let drug;
+                    for(const dataDrug of prescriptionDataAPI.listDrug){
+                        drug = {};
+                        drug.drugName = dataDrug.drugName;
                         drug.dosage = dataDrug.dosage;
                         listDrug.push(drug);
                     }
@@ -76,6 +97,26 @@ router.route("/prescription/:patientId")
                     for(const dataDrug of dataPrescription.listDrug){
                         drug = {};
                         drug.drugName = (await DrugData.findById(dataDrug.drugId)).name;
+                        drug.dosage = dataDrug.dosage;
+                        listDrug.push(drug);
+                    }
+                    prescription.listDrug = listDrug;
+                    prescriptions.push(prescription)
+                }
+                const listPrescriptionDataAPI = await getListPrescriptionHospitalAPI();
+                for(const prescriptionDataAPI of listPrescriptionDataAPI){
+                    let prescription = {}
+                    prescription.createDate = getDateStr(prescriptionDataAPI.createDate);
+                    if(prescriptionDataAPI.doctorIdInHospital)
+                        prescription.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: prescriptionDataAPI.doctorIdInHospital})).getName();
+                    else
+                        prescription.doctorName = null;
+                    prescription.note = prescriptionDataAPI.note;
+                    let listDrug = [];
+                    let drug;
+                    for(const dataDrug of prescriptionDataAPI.listDrug){
+                        drug = {};
+                        drug.drugName = dataDrug.drugName;
                         drug.dosage = dataDrug.dosage;
                         listDrug.push(drug);
                     }

@@ -15,8 +15,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override')
-const {runConfig} = require("./config/config")
 const {crawlDrugAPI} = require("./utils/index")
+const {runConfig} = require("./config/config")
 
 
 app.use(bodyParser.urlencoded({ extended: true }));

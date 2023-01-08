@@ -8,6 +8,7 @@ const DrugData = require("../database/models/drug")
 const UserData = require("../database/models/user")
 const BloodPressureData = require("../database/models/blood_pressure")
 const {isValidId, getDateStr} = require("../utils");
+const {getListBloodPressureHospitalAPI} = require("../config/config");
 
 router.route("/blood_pressure")
     .get(auth, async function (req, res) {
@@ -20,7 +21,7 @@ router.route("/blood_pressure")
             const role = user.role;
             if(role === "Patient"){
                 const dataListBloodPressure = await BloodPressureData.find({patientId: req.user._id})
-                const listBloodPressure = []
+                let listBloodPressure = []
                 for(const dataBloodPressure of dataListBloodPressure){
                     let bloodPressure = {}
                     bloodPressure.createDate = getDateStr(dataBloodPressure.createDate);
@@ -30,6 +31,20 @@ router.route("/blood_pressure")
                     bloodPressure.pulse = dataBloodPressure.pulse;
                     listBloodPressure.push(bloodPressure);
                 }
+                const listBloodPressureDataAPI = await getListBloodPressureHospitalAPI();
+                for(const bloodPressureDataAPI of listBloodPressureDataAPI){
+                    let bloodPressure = {}
+                    bloodPressure.createDate = getDateStr(bloodPressureDataAPI.createDate);
+                    if(bloodPressureDataAPI.doctorIdInHospital)
+                        bloodPressure.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: bloodPressureDataAPI.doctorIdInHospital})).getName();
+                    else
+                        bloodPressure.doctorName = null;
+                    bloodPressure.sys = bloodPressureDataAPI.sys;
+                    bloodPressure.dia = bloodPressureDataAPI.dia;
+                    bloodPressure.pulse = bloodPressureDataAPI.pulse;
+                    listBloodPressure.push(bloodPressure);
+                }
+
                 console.log("listBloodPressure::" + JSON.stringify(listBloodPressure))
                 res.render("bloodPressure/blood_pressure_patient", {listBloodPressure: listBloodPressure, role: req.user.role})
             }
@@ -63,7 +78,7 @@ router.route("/blood_pressure/:patientId")
                     return;
                 }
                 const dataListBloodPressure = await BloodPressureData.find({patientId: req.params.patientId})
-                const listBloodPressure = []
+                let listBloodPressure = []
                 for(const dataBloodPressure of dataListBloodPressure){
                     let bloodPressure = {}
                     bloodPressure.createDate = getDateStr(dataBloodPressure.createDate);
@@ -71,6 +86,19 @@ router.route("/blood_pressure/:patientId")
                     bloodPressure.sys = dataBloodPressure.sys;
                     bloodPressure.dia = dataBloodPressure.dia;
                     bloodPressure.pulse = dataBloodPressure.pulse;
+                    listBloodPressure.push(bloodPressure);
+                }
+                const listBloodPressureDataAPI = await getListBloodPressureHospitalAPI();
+                for(const bloodPressureDataAPI of listBloodPressureDataAPI){
+                    let bloodPressure = {}
+                    bloodPressure.createDate = getDateStr(bloodPressureDataAPI.createDate);
+                    if(bloodPressureDataAPI.doctorIdInHospital)
+                        bloodPressure.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: bloodPressureDataAPI.doctorIdInHospital})).getName();
+                    else
+                        bloodPressure.doctorName = null;
+                    bloodPressure.sys = bloodPressureDataAPI.sys;
+                    bloodPressure.dia = bloodPressureDataAPI.dia;
+                    bloodPressure.pulse = bloodPressureDataAPI.pulse;
                     listBloodPressure.push(bloodPressure);
                 }
                 console.log("listBloodPressure::" + JSON.stringify(listBloodPressure))

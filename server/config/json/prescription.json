@@ -8,11 +8,11 @@
         "note": "Kiểm tra lại vào tuần sau",
         "listDrug": [
             {
-                "drug": "Panadol",
+                "drugName": "Panadol",
                 "dosage": "Sáng 1 viên, Chiều 1 viên, Chiều 1 viên"
             },
             {
-                "drug": "Amox",
+                "drugName": "Amox",
                 "dosage": "Sáng 1 viên, Chiều 1 viên"
             }
         ]
@@ -26,11 +26,11 @@
         "note": "Kiểm tra lại vào tuần sau",
         "listDrug": [
             {
-                "drug": "Panadol",
+                "drugName": "Panadol",
                 "dosage": "Sáng 1 viên, Chiều 1 viên, Chiều 1 viên"
             },
             {
-                "drug": "Amox",
+                "drugName": "Amox",
                 "dosage": "Sáng 1 viên, Chiều 1 viên"
             }
         ]
@@ -44,11 +44,11 @@
         "note": "Kiểm tra lại vào tuần sau",
         "listDrug": [
             {
-                "drug": "Panadol",
+                "drugName": "Panadol",
                 "dosage": "Sáng 1 viên, Chiều 1 viên, Chiều 1 viên"
             },
             {
-                "drug": "Amox",
+                "drugName": "Amox",
                 "dosage": "Sáng 1 viên, Chiều 1 viên"
             }
         ]
