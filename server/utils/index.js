@@ -36,8 +36,6 @@ const crawlDrugAPI = async function (){
         "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-ke-don",
         "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-khong-ke-don"
     ]
-    const path1 = "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-ke-don";
-    const path2 = "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-khong-ke-don";
     let drugs = [];
     for(const path of listPath){
         let res = await fetch(path);
