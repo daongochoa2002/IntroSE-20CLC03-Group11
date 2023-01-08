@@ -74,7 +74,7 @@ router
                 res.redirect("/login");
                 return;
             }
-            const doctors = await UserData.find();
+            const doctors = await UserData.find({role: "Doctor"});
             const dataAppointments = await AppointmentData.find({patientId: null}).sort({time: 1});
             const appointments = [];
             for (const dataAppointment of dataAppointments) {

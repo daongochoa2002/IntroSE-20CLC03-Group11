@@ -174,18 +174,7 @@
                                 <label class="control-label">Role</label>
                             </div>
                             <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <label class="radio-inline">
-                                            <input type="radio" id="Doctor" value="Doctor" name="role" required <%= user.role === "Doctor" ? 'checked' : '' %>>Doctor
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <label class="radio-inline">
-                                            <input type="radio" id="Patient" value="Patient" name="role" <%= user.role === "Patient" ? 'checked' : '' %>>Patient
-                                        </label>
-                                    </div>
-                                </div>
+                                <%= user.role %>
                             </div>
                         </div>
                     </div>

@@ -61,7 +61,21 @@ router.route("/prescription")
             }
             else if(role === "Doctor"){
                 const patients = await UserData.find({role: "Patient"});
-                res.render("prescription/prescription_list_patient", {patients: patients, role: req.user.role});
+                let listPatient = [];
+                patients.forEach(patientData => {
+                    let patient = {};
+                    patient.firstName = patientData.firstName;
+                    patient.lastName = patientData.lastName;
+                    patient.email = patientData.email;
+                    patient.dateOfBirth = getDateStr(patientData.dateOfBirth);
+                    patient.gender = patientData.gender;
+                    patient.phoneNumber = patientData.phoneNumber;
+                    patient.userIdInHospital = patientData.userIdInHospital;
+                    patient._id = patientData._id;
+                    listPatient.push(patient);
+                })
+                console.log("listPatient::" + JSON.stringify(patients))
+                res.render("prescription/prescription_list_patient", {patients: listPatient, role: req.user.role});
             }
             else {
                 res.send("<h1>You are not allowed to view this page</h1>");
@@ -107,8 +121,12 @@ router.route("/prescription/:patientId")
                 for(const prescriptionDataAPI of listPrescriptionDataAPI){
                     let prescription = {}
                     prescription.createDate = getDateStr(prescriptionDataAPI.createDate);
-                    if(prescriptionDataAPI.doctorIdInHospital)
-                        prescription.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: prescriptionDataAPI.doctorIdInHospital})).getName();
+                    if(prescriptionDataAPI.doctorIdInHospital){
+                        const doctor = await UserData.findOne({role: "Doctor", userIdInHospital: prescriptionDataAPI.doctorIdInHospital});
+                        if(doctor){
+                            prescription.doctorName = doctor.getName();
+                        }
+                    }
                     else
                         prescription.doctorName = null;
                     prescription.note = prescriptionDataAPI.note;

@@ -7,8 +7,30 @@ const {isValidId, showError} = require("../utils");
 router.route("/personal_info")
     .get(auth, function (req, res) {
         try {
-            const user = req.user;
-            if(user){
+            const userData = req.user;
+            const user = {};
+            user.email = userData.email;
+            user.password = userData.password;
+            user.firstName = userData.firstName;
+            user.lastName = userData.lastName;
+            const dateTime = userData.dateOfBirth;
+            if(userData.dateOfBirth){
+                const year = dateTime.getFullYear();
+                let month = dateTime.getMonth() + 1;
+                if(month < 10)
+                    month = "0" + month;
+                let date = dateTime.getDate();
+                if(date < 10)
+                    date = "0" + date;
+                user.dateOfBirth = year + "-" + month + "-" + date;
+            }
+            user.role = userData.role;
+            user.gender = userData.gender;
+            user.phoneNumber = userData.phoneNumber;
+            user.userIdInHospital = userData.userIdInHospital;
+            user._id = userData._id;
+            console.log("user::" + JSON.stringify(user))
+            if(userData){
                 res.render("info/personal_information", {
                     user: user,
                     role: req.user.role
