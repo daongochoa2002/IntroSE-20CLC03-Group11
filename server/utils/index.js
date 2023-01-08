@@ -32,14 +32,18 @@ const getDateStr = function (time){
 }
 
 const crawlDrugAPI = async function (){
+    const listPath = [
+        "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-ke-don",
+        "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-khong-ke-don"
+    ]
     const path1 = "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-ke-don";
     const path2 = "https://api-gateway.pharmacity.vn/api/category?slug=thuoc-khong-ke-don";
-    let res = await fetch(path1);
-    let json = await res.json();
-    let drugs = json.data.products.edges;
-    res = await fetch(path2);
-    json = await res.json();
-    drugs = drugs.concat(json.data.products.edges);
+    let drugs = [];
+    for(const path of listPath){
+        let res = await fetch(path);
+        let json = await res.json();
+        drugs = drugs.concat(json.data.products.edges);
+    }
     console.log("length::" + drugs.length);
     for(const drug of drugs){
         const name = drug.node.name;
