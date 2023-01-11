@@ -44,32 +44,22 @@ router.route("/personal_info")
         }
     });
 
-router.route("/personal_info/edit/:id")
+router.route("/personal_info/edit")
     .post(auth, async function (req, res) {
         try {
-            if(!isValidId(req.params.id)){
-                res.send("<h1>Invalid account ID</h1>");
-                return;
-            }
-            let user = await UserData.findOne({_id: req.params.id})
+            let user = req.user;
             if(!user){
                 res.send("<h1>User not exist</h1>");
                 return;
             }
             user.firstName = req.body.firstName;
             user.lastName = req.body.lastName;
-            user.role = req.body.role;
             user.gender = req.body.gender;
             user.phoneNumber = req.body.phoneNumber;
             user.userIdInHospital = req.body.userIdInHospital;
             if(req.body.dateOfBirth){
                 const dateParts = req.body.dateOfBirth.split("-");
-                const dob = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-                if(Date.now() < dob.getTime()){
-                    showError(res, "Wrong date of birth", "/personal_info");
-                    return;
-                }
-                user.dateOfBirth = dob;
+                user.dateOfBirth = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
             }
             await user.save();
             res.redirect("/personal_info");
