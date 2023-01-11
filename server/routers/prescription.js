@@ -22,7 +22,10 @@ router.route("/prescription")
                 for(const dataPrescription of dataPrescriptions){
                     let prescription = {}
                     prescription.createDate = getDateStr(dataPrescription.createDate);
-                    prescription.doctorName = (await UserData.findById(dataPrescription.doctorId)).getName();
+                    prescription.doctorName = null;
+                    const doctor = await UserData.findById(dataPrescription.doctorId);
+                    if(doctor)
+                        prescription.doctorName = doctor.getName();
                     prescription.note = dataPrescription.note;
                     let listDrug = [];
                     let drug;
@@ -40,10 +43,16 @@ router.route("/prescription")
                 for(const prescriptionDataAPI of listPrescriptionDataAPI){
                     let prescription = {}
                     prescription.createDate = getDateStr(prescriptionDataAPI.createDate);
-                    if(prescriptionDataAPI.doctorIdInHospital)
-                        prescription.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: prescriptionDataAPI.doctorIdInHospital})).getName();
-                    else
-                        prescription.doctorName = null;
+                    prescription.doctorName = null;
+                    if(prescriptionDataAPI.doctorIdInHospital) {
+                        const doctor = await UserData.findOne({
+                            role: "Doctor",
+                            userIdInHospital: prescriptionDataAPI.doctorIdInHospital
+                        });
+                        if (doctor) {
+                            prescription.doctorName = doctor.getName();
+                        }
+                    }
                     prescription.note = prescriptionDataAPI.note;
                     let listDrug = [];
                     let drug;
@@ -104,7 +113,10 @@ router.route("/prescription/:patientId")
                 for(const dataPrescription of dataPrescriptions){
                     let prescription = {}
                     prescription.createDate = getDateStr(dataPrescription.createDate);
-                    prescription.doctorName = (await UserData.findById(dataPrescription.doctorId)).getName();
+                    prescription.doctorName = null;
+                    const doctor = await UserData.findById(dataPrescription.doctorId);
+                    if(doctor)
+                        prescription.doctorName = doctor.getName();
                     prescription.note = dataPrescription.note;
                     let listDrug = [];
                     let drug;
@@ -121,14 +133,13 @@ router.route("/prescription/:patientId")
                 for(const prescriptionDataAPI of listPrescriptionDataAPI){
                     let prescription = {}
                     prescription.createDate = getDateStr(prescriptionDataAPI.createDate);
+                    prescription.doctorName = null;
                     if(prescriptionDataAPI.doctorIdInHospital){
                         const doctor = await UserData.findOne({role: "Doctor", userIdInHospital: prescriptionDataAPI.doctorIdInHospital});
                         if(doctor){
                             prescription.doctorName = doctor.getName();
                         }
                     }
-                    else
-                        prescription.doctorName = null;
                     prescription.note = prescriptionDataAPI.note;
                     let listDrug = [];
                     let drug;

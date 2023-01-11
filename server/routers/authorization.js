@@ -12,6 +12,12 @@ router.route("/signup")
     .post(async function (req, res) {
         try {
             console.log("signup " + JSON.stringify(req.body))
+            const email = req.body.email;
+            const isEmailExist = await UserData.findOne({email: email});
+            if(isEmailExist){
+                showError(res, "Email already exists", "/signup");
+                return;
+            }
             let date = null;
             if(req.body.dateOfBirth){
                 const dateParts = req.body.dateOfBirth.split("-");

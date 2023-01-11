@@ -25,7 +25,10 @@ router.route("/blood_pressure")
                 for(const dataBloodPressure of dataListBloodPressure){
                     let bloodPressure = {}
                     bloodPressure.createDate = getDateStr(dataBloodPressure.createDate);
-                    bloodPressure.doctorName = (await UserData.findById(dataBloodPressure.doctorId)).getName();
+                    bloodPressure.doctorName = null;
+                    const doctor = await UserData.findById(dataBloodPressure.doctorId);
+                    if(doctor)
+                        bloodPressure.doctorName = doctor.getName();
                     bloodPressure.sys = dataBloodPressure.sys;
                     bloodPressure.dia = dataBloodPressure.dia;
                     bloodPressure.pulse = dataBloodPressure.pulse;
@@ -35,10 +38,12 @@ router.route("/blood_pressure")
                 for(const bloodPressureDataAPI of listBloodPressureDataAPI){
                     let bloodPressure = {}
                     bloodPressure.createDate = getDateStr(bloodPressureDataAPI.createDate);
-                    if(bloodPressureDataAPI.doctorIdInHospital)
-                        bloodPressure.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: bloodPressureDataAPI.doctorIdInHospital})).getName();
-                    else
-                        bloodPressure.doctorName = null;
+                    bloodPressure.doctorName = null;
+                    if(bloodPressureDataAPI.doctorIdInHospital){
+                        const doctor = await UserData.findOne({role: "Doctor", userIdInHospital: bloodPressureDataAPI.doctorIdInHospital});
+                        if(doctor)
+                            bloodPressure.doctorName = doctor.getName();
+                    }
                     bloodPressure.sys = bloodPressureDataAPI.sys;
                     bloodPressure.dia = bloodPressureDataAPI.dia;
                     bloodPressure.pulse = bloodPressureDataAPI.pulse;
@@ -82,7 +87,10 @@ router.route("/blood_pressure/:patientId")
                 for(const dataBloodPressure of dataListBloodPressure){
                     let bloodPressure = {}
                     bloodPressure.createDate = getDateStr(dataBloodPressure.createDate);
-                    bloodPressure.doctorName = (await UserData.findById(dataBloodPressure.doctorId)).getName();
+                    bloodPressure.doctorName = null;
+                    const doctor = await UserData.findById(dataBloodPressure.doctorId);
+                    if(doctor)
+                        bloodPressure.doctorName = doctor.getName();
                     bloodPressure.sys = dataBloodPressure.sys;
                     bloodPressure.dia = dataBloodPressure.dia;
                     bloodPressure.pulse = dataBloodPressure.pulse;
@@ -92,10 +100,12 @@ router.route("/blood_pressure/:patientId")
                 for(const bloodPressureDataAPI of listBloodPressureDataAPI){
                     let bloodPressure = {}
                     bloodPressure.createDate = getDateStr(bloodPressureDataAPI.createDate);
-                    if(bloodPressureDataAPI.doctorIdInHospital)
-                        bloodPressure.doctorName = (await UserData.findOne({role: "Doctor", userIdInHospital: bloodPressureDataAPI.doctorIdInHospital})).getName();
-                    else
-                        bloodPressure.doctorName = null;
+                    bloodPressure.doctorName = null;
+                    if(bloodPressureDataAPI.doctorIdInHospital){
+                        const doctor = await UserData.findOne({role: "Doctor", userIdInHospital: bloodPressureDataAPI.doctorIdInHospital});
+                        if(doctor)
+                            bloodPressure.doctorName = doctor.getName();
+                    }
                     bloodPressure.sys = bloodPressureDataAPI.sys;
                     bloodPressure.dia = bloodPressureDataAPI.dia;
                     bloodPressure.pulse = bloodPressureDataAPI.pulse;
