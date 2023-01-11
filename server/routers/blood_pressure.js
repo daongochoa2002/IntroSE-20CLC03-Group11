@@ -69,7 +69,7 @@ router.route("/blood_pressure")
                     listPatient.push(patient);
                 })
                 console.log("listPatient::" + JSON.stringify(patients))
-                res.render("prescription/prescription_list_patient", {patients: listPatient, role: req.user.role});
+                res.render("bloodPressure/blood_pressure_list_patient", {patients: listPatient, role: req.user.role});
             }
             else {
                 res.send("<h1>You are not allowed to view this page</h1>");

@@ -51,6 +51,11 @@
       border:0;
       box-shadow:4px 4px 10px rgba(0,0,0,0.2);
     }
+    table, th, td {
+      padding: 10px;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
   </style>
 </head>
 <body onload="()=> {alert('abc')};">
@@ -67,7 +72,7 @@
 
         <div class="container mt-5">
           <div class="row">
-            <div class="col-md-6 offset-md-3 border p-4 shadow bg-light">
+            <div class="col-md-6 offset-md-3 border p-4 shadow bg-light mb-1">
               <form action="/appointment/patient" method="post">
                 <div class="row">
                   <div class="col-12">
@@ -92,7 +97,7 @@
             </div>
           </div>
         </div>
-        <table width="1000px">
+        <table width="1000px" class="mt-5">
           <thead>
           <tr>
             <th>Date</th>

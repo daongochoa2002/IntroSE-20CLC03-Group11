@@ -67,6 +67,11 @@
             clear: both;
             display: table;
         }
+        table, th, td {
+            padding: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
     </style>
 </head>
 <body>
@@ -83,7 +88,7 @@
 
                 <div class="container mt-5">
                     <div class="row">
-                        <div class="col-md-6 offset-md-3 border p-4 shadow bg-light">
+                        <div class="col-md-7 offset-md-3 border p-4 shadow bg-light">
                             <form action="/appointment/doctor" method="post">
                                 <div class="row">
                                     <div class="col-md-5">
