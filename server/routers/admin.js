@@ -31,17 +31,32 @@ router
                 res.send("<h1>Invalid account ID</h1>");
                 return;
             }
-            const user = await UserData.findOne({_id: req.params.id});
-            if(!user){
-                res.send("user " + req.params.id + " undefined")
-            }
-            if(user.dateOfBirth) {
-                user.dateOfBirth = user.dateOfBirth.getFullYear() + "-" + (user.dateOfBirth.getMonth() + 1) + "-" +user.dateOfBirth.getDate();
-            }
-            if(!user){
-                res.send("<h1>User not exist</h1>");
+            const userData = await UserData.findOne({_id: req.params.id});
+            if(!userData){
+                res.send("user " + req.params.id + " undefined");
                 return;
             }
+            const user = {};
+            user.email = userData.email;
+            user.password = userData.password;
+            user.firstName = userData.firstName;
+            user.lastName = userData.lastName;
+            const dateTime = userData.dateOfBirth;
+            if(userData.dateOfBirth){
+                const year = dateTime.getFullYear();
+                let month = dateTime.getMonth() + 1;
+                if(month < 10)
+                    month = "0" + month;
+                let date = dateTime.getDate();
+                if(date < 10)
+                    date = "0" + date;
+                user.dateOfBirth = year + "-" + month + "-" + date;
+            }
+            user.role = userData.role;
+            user.gender = userData.gender;
+            user.phoneNumber = userData.phoneNumber;
+            user.userIdInHospital = userData.userIdInHospital;
+            user._id = userData._id;
             console.log("edit user:: " + JSON.stringify(user))
             res.render("admin/create_account", {
                 user: user,
