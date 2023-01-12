@@ -4,6 +4,7 @@ const AppointmentData = require("../database/models/appointment");
 const UserData = require("../database/models/user");
 const {isValidId, getDateStr} = require("../utils");
 const router = new express.Router();
+const {showError} = require("../utils/index")
 
 router
     .get("/admin/manage_account", auth, async function (req, res) {
@@ -123,6 +124,12 @@ router
     })
     .post("/admin/manage_account/create", auth, async function (req, res) {
         try {
+            const email = req.body.email;
+            const isEmailExist = await UserData.findOne({email: email});
+            if(isEmailExist){
+                showError(res, "Email already exists", "/admin/manage_account/create");
+                return;
+            }
             let date = null;
             if(req.body.dateOfBirth){
                 const dateParts = req.body.dateOfBirth.split("-");
